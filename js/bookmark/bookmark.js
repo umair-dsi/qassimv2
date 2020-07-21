@@ -54,16 +54,16 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                 var bookmarkPublicList = result.data.bookMarkListPublic_arr;
 
                 var finalBookMarkList = [
-                    { "id": "myBookmark", "parent": "#", "text": $translate.instant('BOOKMARK.MY_BOOKMARKS'), "icon": "glyphicon glyphicon-folder-open", "li_attr": { "type": "folder" } },
-                    { "id": "sharedBookmark", "parent": "#", "text": $translate.instant('BOOKMARK.sharedbookmarks'), "icon": "glyphicon glyphicon-folder-open", "li_attr": { "type": "folder" } }
+                    { "id": "myBookmark", "parent": "#", "text": $translate.instant('BOOKMARK.MY_BOOKMARKS'), "icon": "fa fa-folder-open", "li_attr": { "type": "folder" } },
+                    { "id": "sharedBookmark", "parent": "#", "text": $translate.instant('BOOKMARK.sharedbookmarks'), "icon": "fa fa-folder-open", "li_attr": { "type": "folder" } }
                 ];
 
 
                 $.each(bookmarkFolderList, function (index, value) {
                     if (value.ParentID == null) {
-                        finalBookMarkList.push({ "id": "fd_" + value.BookMarkFolderID, "parent": "myBookmark", "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "glyphicon glyphicon-folder-open", "li_attr": { "type": "folder" }, "data": { "isPublic": value.IsPublic } });
+                        finalBookMarkList.push({ "id": "fd_" + value.BookMarkFolderID, "parent": "myBookmark", "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "fa fa-folder-open", "li_attr": { "type": "folder" }, "data": { "isPublic": value.IsPublic } });
                     } else if (value.ParentID != null) {
-                        finalBookMarkList.push({ "id": "fd_" + value.BookMarkFolderID, "parent": "fd_" + value.ParentID, "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "glyphicon glyphicon-folder-open", "li_attr": { "type": "folder" }, "data": { "isPublic": value.IsPublic } });
+                        finalBookMarkList.push({ "id": "fd_" + value.BookMarkFolderID, "parent": "fd_" + value.ParentID, "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "fa fa-folder-open", "li_attr": { "type": "folder" }, "data": { "isPublic": value.IsPublic } });
                     }
                 });
 
@@ -78,9 +78,9 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                     $scope.bookMarkerObject.push({ marker: markerObj, object: value });
 
                     if (value.ParentID != null) {
-                        finalBookMarkList.push({ "id": "bk_" + value.BookMarkID, "parent": "fd_" + value.ParentID, "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "glyphicon glyphicon-bookmark", "li_attr": { "type": "bookmark" }, "data": { "isPublic": value.IsPublic, "description": value.Description, "shape": value.Shape } });
+                        finalBookMarkList.push({ "id": "bk_" + value.BookMarkID, "parent": "fd_" + value.ParentID, "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "fa fa-bookmark", "li_attr": { "type": "bookmark" }, "data": { "isPublic": value.IsPublic, "description": value.Description, "shape": value.Shape } });
                     } else if (value.ParentID == null) {
-                        finalBookMarkList.push({ "id": "bk_" + value.BookMarkID, "parent": "myBookmark", "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "glyphicon glyphicon-bookmark", "li_attr": { "type": "bookmark" }, "data": { "isPublic": value.IsPublic, "description": value.Description, "shape": value.Shape } });
+                        finalBookMarkList.push({ "id": "bk_" + value.BookMarkID, "parent": "myBookmark", "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "fa fa-bookmark", "li_attr": { "type": "bookmark" }, "data": { "isPublic": value.IsPublic, "description": value.Description, "shape": value.Shape } });
                     }
 
                 });
@@ -89,9 +89,9 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
 
                 $.each(bookmarkFolderPublicList, function (index, value) {
                     if (value.ParentID == null) {
-                        finalBookMarkList.push({ "id": "fd_" + value.BookMarkFolderID, "parent": "sharedBookmark", "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "glyphicon glyphicon-folder-open", "li_attr": { "type": "folder" }, "data": { "isPublic": value.IsPublic } });
+                        finalBookMarkList.push({ "id": "fd_" + value.BookMarkFolderID, "parent": "sharedBookmark", "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "fa fa-folder-open", "li_attr": { "type": "folder" }, "data": { "isPublic": value.IsPublic } });
                     } else if (value.ParentID != null) {
-                        finalBookMarkList.push({ "id": "fd_" + value.BookMarkFolderID, "parent": "fd_" + value.ParentID, "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "glyphicon glyphicon-folder-open", "li_attr": { "type": "folder" }, "data": { "isPublic": value.IsPublic } });
+                        finalBookMarkList.push({ "id": "fd_" + value.BookMarkFolderID, "parent": "fd_" + value.ParentID, "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "fa fa-folder-open", "li_attr": { "type": "folder" }, "data": { "isPublic": value.IsPublic } });
                     }
                 });
 
@@ -106,9 +106,9 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                     $scope.bookMarkerObject.push({ marker: markerObj, object: value });
 
                     if (value.ParentID != null) {
-                        finalBookMarkList.push({ "id": "bk_" + value.BookMarkID, "parent": "fd_" + value.ParentID, "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "glyphicon glyphicon-bookmark", "li_attr": { "type": "bookmark" }, "data": { "isPublic": value.IsPublic, "description": value.Description, "shape": value.Shape } });
+                        finalBookMarkList.push({ "id": "bk_" + value.BookMarkID, "parent": "fd_" + value.ParentID, "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "fa fa-bookmark", "li_attr": { "type": "bookmark" }, "data": { "isPublic": value.IsPublic, "description": value.Description, "shape": value.Shape } });
                     } else if (value.ParentID == null) {
-                        finalBookMarkList.push({ "id": "bk_" + value.BookMarkID, "parent": "sharedBookmark", "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "glyphicon glyphicon-bookmark", "li_attr": { "type": "bookmark" }, "data": { "isPublic": value.IsPublic, "description": value.Description, "shape": value.Shape } });
+                        finalBookMarkList.push({ "id": "bk_" + value.BookMarkID, "parent": "sharedBookmark", "text": value.Name, a_attr: { 'title': 'Created By: ' + value.owner.UserName }, "icon": "fa fa-bookmark", "li_attr": { "type": "bookmark" }, "data": { "isPublic": value.IsPublic, "description": value.Description, "shape": value.Shape } });
                     }
 
                 });
@@ -137,7 +137,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                 var items = {
                                     addBookMark: {
                                         label: $translate.instant("BOOKMARK.ADD_BOOKMARK"),
-                                        icon: "glyphicon glyphicon-bookmark",
+                                        icon: "fa fa-bookmark",
                                         action: function () {
                                             //$("#dlg_addBookmark").addClass("open");
                                             $scope.bookmarkCat = "addModifyBk";
@@ -154,7 +154,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                     },
                                     addBookMarkFolder: {
                                         label: $translate.instant("BOOKMARK.ADD_BOOKMARK_FOLDER"),
-                                        icon: "glyphicon glyphicon-folder-open",
+                                        icon: "fa fa-folder-open",
                                         action: function () {
                                             $modal.open({
                                                 templateUrl: 'BookMarkFolder.html',
@@ -174,7 +174,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                     },
                                     modifyBookMarkFolder: {
                                         label: $translate.instant("BOOKMARK.MODIFY_BOOKMARK_FOLDER"),
-                                        icon: 'glyphicon glyphicon-edit',
+                                        icon: 'fa fa-pencil',
                                         action: function () {
                                             var folderVO = {
                                                 name: node.text,
@@ -201,12 +201,12 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                     },
                                     modifyBookMark: {
                                         label: $translate.instant("BOOKMARK.MODIFY_BOOKMARK"),
-                                        icon: 'glyphicon glyphicon-edit',
+                                        icon: 'fa fa-pencil',
                                         action: function () {
                                             //$("#dlg_addBookmark").addClass("open");
                                             $scope.bookmarkCat = "addModifyBk";
                                             var scopeBk = angular.element($("#dlg_addBookmark")).scope();
-                                            $('#bookmark_jstree').jstree(true).set_icon(node.id, "glyphicon glyphicon-edit");
+                                            $('#bookmark_jstree').jstree(true).set_icon(node.id, "fa fa-pencil");
                                             scopeBk.$apply(function () {
                                                 scopeBk.formData = {
                                                     bookmarkID: (node.id == "myBookmark" ? null : node.id.split("_")[1]),
@@ -218,7 +218,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                             });
 
                                             if ($scope.bookMarkeditableNodeID != null && $scope.bookMarkeditableNodeID != node.id) {
-                                                $('#bookmark_jstree').jstree(true).set_icon($scope.bookMarkeditableNodeID, "glyphicon glyphicon-bookmark");
+                                                $('#bookmark_jstree').jstree(true).set_icon($scope.bookMarkeditableNodeID, "fa fa-bookmark");
                                             }
 
                                             $scope.bookMarkeditableNodeID = node.id;
@@ -257,7 +257,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                     },
                                     zoomToBookMark: {
                                         label: $translate.instant("BOOKMARK.ZOOM_TO_BOOKMARK"),
-                                        icon: "glyphicon glyphicon-search",
+                                        icon: "fa fa-search",
                                         action: function () {
                                             if (node.data != null && node.data.shape != null) {
                                                 var wkt = new Wkt.Wkt();
@@ -273,7 +273,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                     },
                                     deleteBookMark: { // The "delete" menu item
                                         label: $translate.instant("BOOKMARK.DELETE_BOOKMARK"),
-                                        icon: "glyphicon glyphicon-trash",
+                                        icon: "fa fa-trash",
                                         action: function () {
 
                                             $modal.open({
@@ -290,7 +290,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                     },
                                     deleteBookMarkFolder: {
                                         label: $translate.instant("BOOKMARK.DELETE_BOOKMARK_FOLDER"),
-                                        icon: "glyphicon glyphicon-trash",
+                                        icon: "fa fa-trash",
                                         action: function () {
 
                                             $modal.open({
