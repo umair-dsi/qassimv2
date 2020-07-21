@@ -283,19 +283,19 @@
                                 <span class="custom-color">{{'BOOKMARK.LABEL' | translate}}</span>:
                                 <input type="text" class="form-control input-xs" name="DefaultName" ng-model="formData.name" ng-focus="removeMessage();" ng-maxlength="100">
                                 <div class="error-container" ng-show="bookMarkForm.DefaultName.$dirty && bookMarkForm.DefaultName.$invalid">
-                                    <small class="text-red" ng-show="bookMarkForm.DefaultName.$error.required"><span data-i18n="msg-value-req"></span></small>
-                                    <small class="text-red" ng-show="bookMarkForm.DefaultName.$error.minlength"><span data-i18n="msg-value-length"></span></small>
-                                    <small class="text-red" ng-show="bookMarkForm.DefaultName.$error.maxlength"><span data-i18n="inputlengthmsg"></span></small>
+                                    <small class="text-red" ng-show="bookMarkForm.DefaultName.$error.required"><span>{{'BOOKMARK.msg-value-req' | translate}}</span></small>
+                                    <small class="text-red" ng-show="bookMarkForm.DefaultName.$error.minlength"><span>{{'BOOKMARK.msg-value-length' | translate}}</span></small>
+                                    <small class="text-red" ng-show="bookMarkForm.DefaultName.$error.maxlength"><span>{{'BOOKMARK.inputlengthmsg' | translate}}</span></small>
                                 </div>
                                 <div class="error-container" ng-show="uniqueError">
-                                    <small class="text-red"><span>{{'BOOKMARK.FOLDER_NAME_TAKEN' | translate}}</span></small>
+                                    <small class="text-red"><span>{{'BOOKMARK.msg-name-already-exist' | translate}}</span></small>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <span>{{'BOOKMARK.DESCRIPTION' | translate}}</span>:
                                 <textarea rows="3" class="form-control" name="Description" ng-model="formData.description" ng-maxlength="1000"></textarea>
                                 <div class="error-container" ng-show="bookMarkForm.Description.$dirty && bookMarkForm.Description.$invalid">
-                                    <small class="text-red" ng-show="bookMarkForm.Description.$error.maxlength"><span data-i18n="inputlengthmsg"></span></small>
+                                    <small class="text-red" ng-show="bookMarkForm.Description.$error.maxlength"><span>{{'BOOKMARK.inputlengthmsg' | translate}}</span></small>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -342,5 +342,44 @@
     <div class="modal-footer">
         <button class="btn btn-success btn-border" ng-click="ok()"><span>{{'GEOSERV.DELETE' |translate}}</span></button>
         <button class="btn btn-danger btn-border" ng-click="cancel()"><span>{{'BOOKMARK.CANCEL' |translate}}</span></button>
+    </div>
+</script>
+
+
+<script type="text/ng-template" id="BookMarkFolder.html">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">×</button>
+        <h4 class="modal-title">{{formData.operation}}</h4>
+    </div>
+    <div class="modal-body no-padding" ng-submit="submitBookMarkFolderForm(formData)">
+        <form name="bookMarkFolderForm" class="smart-form">
+            <div class="form-group">
+                <span>{{'BOOKMARK.FOLDER_NAME' |translate}}:</span>
+                <input type="text" name="foldername" class="form-control input-xs" ng-model="formData.name" ng-focus="removeMessage();" ng-minlength="3" ng-maxlength="100" required>
+                <div class="error-container" ng-show="bookMarkFolderForm.foldername.$dirty && bookMarkFolderForm.foldername.$invalid">
+                    <small class="text-red" ng-show="bookMarkFolderForm.foldername.$error.required"><span>{{'BOOKMARK.msg-value-req' | translate}}</span></small>
+                    <small class="text-red" ng-show="bookMarkFolderForm.foldername.$error.minlength"><span>{{'BOOKMARK.msg-value-length' | translate}}</span></small>
+                    <small class="text-red" ng-show="bookMarkFolderForm.foldername.$error.maxlength"><span>{{'BOOKMARK.inputlengthmsg' | translate}}</span></small>
+                </div>
+                <div class="error-container" ng-show="uniqueError">
+                    <small class="text-red"><span></span>{{'BOOKMARK.msg-name-already-exist' | translate}}</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <input id="isPublicCBFolder" class="checkbox" type="checkbox" name="checkbox" ng-model="formData.isPublic" ng-true-value="'Y'" ng-false-value="'N'" style="margin: 4px 0 0">
+                    <label for="isPublicCB" class="custom-color">{{'BOOKMARK.ISPUBLIC' | translate}}</label><br>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" ng-disabled="bookMarkFolderForm.$invalid" class="btn btn-success" ng-hide="btn_show_loading" ng-model="saveMaploading">
+                    <span>{{'BOOKMARK.SAVE' | translate}}</span>
+                </button>
+                <button type="button" ng-show="btn_show_loading" disabled="disabled" class="btn btn-success"><span>{{'BOOKMARK.saving' | translate}}</span>....</button>
+                <button type="button" class="btn btn-default" ng-click="cancel();">
+                    <span>{{'BOOKMARK.CANCEL' | translate}}</span>
+                </button>
+            </div>
+        </form>
     </div>
 </script>

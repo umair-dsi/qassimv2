@@ -220,7 +220,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                             if ($scope.bookMarkeditableNodeID != null && $scope.bookMarkeditableNodeID != node.id) {
                                                 $('#bookmark_jstree').jstree(true).set_icon($scope.bookMarkeditableNodeID, "fa fa-bookmark");
                                             }
-
+                                            $('#bookmark_jstree').jstree('select_node', 'bk_' + node.id.split("_")[1]);
                                             $scope.bookMarkeditableNodeID = node.id;
                                             var sel_bk = $filter('filter')($scope.bookMarkerObject, { object: { BookMarkID: node.id.split("_")[1] } });
                                             if (sel_bk.length > 0) {
@@ -246,7 +246,11 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
 
                                                 var wkt = new Wkt.Wkt();
                                                 wkt.read(node.data.shape);
-                                                $scope.bookMarkeditable = new L.marker(wkt.toObject().getLatLng(), { icon: L.AwesomeMarkers.icon({ icon: 'arrows', prefix: 'fa', markerColor: 'red' }) });
+                                                $scope.bookMarkeditable = new L.marker(wkt.toObject().getLatLng(), {
+                                                    icon: L.AwesomeMarkers.icon({ icon: 'arrows', prefix: 'fa', markerColor: 'red' }),
+                                                    draggable: true,
+                                                    interactive: true
+                                                });
                                                 //$scope.bookMarkeditable.bindLabel(sel_bk[0].object.Name, { noHide: true });//version .6.x.x
                                                 $scope.bookMarkeditable.bindTooltip(sel_bk[0].object.Name, { permanent: true });//version 1.4
                                                 $rootScope.mapObj.addLayer($scope.bookMarkeditable);
@@ -425,7 +429,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
     $scope.getBookMarkList();
 });
 
-mapModule.controller('BookMarkFolderCtrl', ['$scope', '$http', '$modalInstance', '$rootScope', 'parentId', 'folderVO', function ($scope, $http, $modalInstance, $rootScope, parentId, folderVO) {
+mapModule.controller('BookMarkFolderCtrl', ['$scope', '$http', '$modalInstance', '$rootScope', 'parentId', 'folderVO', '$translate', function ($scope, $http, $modalInstance, $rootScope, parentId, folderVO, $translate) {
     $scope.uniqueError = false;
     $scope.formData = { isPublic: "N", operation: $translate.instant("BOOKMARK.ADD_BOOKMARK_FOLDER") };
     if (folderVO != null) {
@@ -457,7 +461,7 @@ mapModule.controller('BookMarkFolderCtrl', ['$scope', '$http', '$modalInstance',
             parentFolderId: (parentId === "myBookmark" ? null : parentId),
             bookmarkfolderId: bookmark.bookmarkfolderId
         };
-        var checkDuplicateFolderName_URL = $rootScope.baseUrl + "Bookmar/m_checkDuplicateBookMarkName";
+        var checkDuplicateFolderName_URL = $rootScope.baseUrl + "Bookmark/m_checkDuplicateFolderName";
         if (bookmark.bookmarkfolderId != null && bookmark.bookmarkfolderId != "") {
 
             $http.get(checkDuplicateFolderName_URL,
@@ -470,9 +474,17 @@ mapModule.controller('BookMarkFolderCtrl', ['$scope', '$http', '$modalInstance',
                     }
                 }
             ).then(function (result) {
-                var updateBookMarkFolderName_URL = $rootScope.baseUrl;
+                var updateBookMarkFolderName_URL = $rootScope.baseUrl + "Bookmark/m_updateBookMarkFolderName";
                 if (result.data.status === 0) {
-                    $http.get(updateBookMarkFolderName_URL, { bookmark: bookmarkVo, 'timeStamp': new Date().getTime() }).then(function (result) {
+                    $http.get(updateBookMarkFolderName_URL,
+                        {
+                            params: {
+                                'userId': $rootScope.userInfo.userId,
+                                'token': $rootScope.userInfo.token,
+                                bookmark: bookmarkVo,
+                                'timeStamp': new Date().getTime()
+                            }
+                        }).then(function (result) {
                         if (result.data.msgId === 1) {
                             //toastr.error(result.data.msg, localize.getLocalizedString("Error"), { positionClass: (currentLanguage == 'ar' ? 'toast-top-left' : 'toast-top-right') });
                             lnv.alert({
@@ -495,10 +507,26 @@ mapModule.controller('BookMarkFolderCtrl', ['$scope', '$http', '$modalInstance',
             });
 
         } else {
-            $http.get(checkDuplicateFolderName_URL, { bookmark: bookmarkVo, 'timeStamp': new Date().getTime() }).then(function (result) {
+            $http.get(checkDuplicateFolderName_URL,
+                {
+                    params: {
+                        'userId': $rootScope.userInfo.userId,
+                        'token': $rootScope.userInfo.token,
+                        bookmark: bookmarkVo,
+                        'timeStamp': new Date().getTime()
+                    }
+                }).then(function (result) {
                 if (result.data.status === 0) {
-                    var addBookMarkFolder_URL = $rootScope.baseUrl;
-                    $http.get(addBookMarkFolder_URL, { bookmark: bookmarkVo, 'timeStamp': new Date().getTime() }).then(function (result) {
+                    var addBookMarkFolder_URL = $rootScope.baseUrl + "Bookmark/m_addBookMarkFolder";
+                    $http.get(addBookMarkFolder_URL,
+                        {
+                            params: {
+                                'userId': $rootScope.userInfo.userId,
+                                'token': $rootScope.userInfo.token,
+                                bookmark: bookmarkVo,
+                                'timeStamp': new Date().getTime()
+                            }
+                        }).then(function (result) {
                         if (result.data.msgId === 1) {
                             //toastr.error(result.data.msg, localize.getLocalizedString("Error"), { positionClass: (currentLanguage == 'ar' ? 'toast-top-left' : 'toast-top-right') });
                             lnv.alert({
@@ -669,8 +697,16 @@ mapModule.controller('ModalInstanceCtrl', function ($scope, $modalInstance, item
     $scope.items = items;
     $scope.ok = function () {
         if ($scope.items != null && $scope.items.operation == "deleteBookmarkFolder") {
-            var deleteBookMarkFolderList_URL = $rootScope.baseUrl;
-            $http.get(deleteBookMarkFolderList_URL, { folderId: $scope.items.folderId, 'timeStamp': new Date().getTime() }).then(function (result) {
+            var deleteBookMarkFolderList_URL = $rootScope.baseUrl + "Bookmark/m_deleteBookmarkFolder";
+            $http.get(deleteBookMarkFolderList_URL,
+                {
+                    params: {
+                        'userId': $rootScope.userInfo.userId,
+                        'token': $rootScope.userInfo.token,
+                        folderId: $scope.items.folderId,
+                        'timeStamp': new Date().getTime()
+                    }
+                }).then(function (result) {
                 if (result.data.msgId === 1) {
                     lnv.alert({
                         content: result.data.msg,

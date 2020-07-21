@@ -137,10 +137,13 @@
     "msg-bookmark-created": "Bookmark Created Successfully",
     "msg-bookmark-modify": "Bookmark Modified Successfully",
     "saving": "Saving",
-    "FOLDER_NAME_TAKEN": "This Folder name is taken, please try another",
+    "msg-name-already-exist": "This name is taken, please try another",
     "msg-bookmark-folder-deleted": "Bookmark Folder Deleted Successfully",
     "msg-bookmark-deleted": "Bookmark Deleted Successfully",
-    "ConfirmDelete": "Confirm Delete"
+    "ConfirmDelete": "Confirm Delete",
+    "msg-value-req": "Value Required",
+    "msg-value-length": "Required value to be at least 3 characters",
+    "inputlengthmsg": "Please enter value having less than 100 characters"
   },
   "HELP": {
     "USERS": "View all users for a specific group. You can also manage user accounts by adding, modifying and deleting profiles.",
