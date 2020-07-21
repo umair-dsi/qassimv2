@@ -1,0 +1,228 @@
+<div id="header-fixed">
+	<a class="open-left-sidebar" ui-sref="userlist">
+		<i class="fa fa-2x fa-chevron-left"></i>
+	</a>
+	<h4 class="heading-title" style="text-align: center;">
+		<img src="images/mbrsc/logo-arc-mobile.png">
+	</h4>
+	<a class="open-right-sidebar" href="javascript:void(0);" ng-click="onClickToolbar();" style="top:5px;">
+		<i class="fa fa-2x fa-ellipsis-v"></i>
+	</a>
+</div>
+<div class="custum-bg" style="padding-left:20px;padding-right: 20px;padding-top: 65px;">
+	<h5 class="heading-title">{{ 'USERS.USER' | translate }}</h5>
+	<div class="decoration"></div>
+	<form name="userForm" class="contactForm" id="contactForm">
+		<!-- <div class="userform-edit-buttons-class">
+			<a href="#" class="scale-hover back-to-top bg-green-dark social-ball" ng-click="selectSaveUser()" ng-disabled="userForm.$invalid"><i class="fa fa-floppy-o"></i></a>
+			<a href="#" class="scale-hover google-color social-ball" ng-click="deleteUser()" ng-show="addUser.UserID != null"><i class="fa fa-trash-o"></i></a>		
+		</div> -->
+		<fieldset>
+			<div class="formFieldWrap">
+				<label class="field-title contactNameField" for="contactNameField">
+					{{ 'USERS.USER_NAME' | translate }}
+					<span style="color: red">(*)</span>
+				</label>
+				<input type="text" name="UserName" ng-model="addUser.UserName" ng-disabled="addUser.UserID != null" class="contactField requiredField" ng-minlength="5" ng-maxlength="100" required>
+				<div class="error-container" ng-show="userForm.UserName.$dirty && userForm.UserName.$invalid">
+					<small class="text-red" ng-show="userForm.UserName.$error.required">
+						<span translate="USERS.USER_NAME_VALIDATION_REQUIRED"></span>
+					</small>
+					<small class="text-red" ng-show="userForm.UserName.$error.minlength">
+						<span translate="USERS.USER_NAME_VALIDATION_MIN_CHARACTERS_5"></span>
+					</small>
+					<small class="text-red" ng-show="userForm.UserName.$error.maxlength">
+						<span translate="USERS.USER_NAME_VALIDATION_MAX_CHARACTERS_100"></span>
+					</small>
+				</div>
+			</div>
+			<div class="formFieldWrap">
+				<label class="field-title contactNameField" for="passwordField">
+					{{ 'USERS.PASSWORD' | translate }}
+					<span style="color: red">(*)</span>
+				</label>
+				<input type="password" name="Password" ng-model="addUser.Password" class="contactField requiredField" ng-minlength="8" ng-maxlength="50" required>
+				<div class="error-container" ng-show="userForm.Password.$dirty && userForm.Password.$invalid">
+					<small class="text-red" ng-show="userForm.Password.$error.required">
+						<span translate="USERS.USER_NAME_VALIDATION_REQUIRED"></span>
+					</small>
+					<small class="text-red" ng-show="userForm.Password.$error.minlength">
+						<span translate="USERS.PASSWORD_VALIDATION_MIN_CHARACTERS_8"></span>
+					</small>
+					<small class="text-red" ng-show="userForm.Password.$error.maxlength">
+						<span translate="USERS.PASSWORD_VALIDATION_MAX_CHARACTERS_50"></span>
+					</small>
+				</div>
+			</div>
+			<div class="formFieldWrap">
+				<label class="field-title contactNameField" for="contactNameField">
+					{{ 'USERS.CONFIRM_PASSWORD' | translate }}
+					<span style="color: red">(*)</span>
+				</label>
+				<input type="password" ng-model="addUser.ConfirmPassword" name="ConfirmPassword" class="contactField requiredField" compare-to="addUser.Password" ng-minlength="8" ng-maxlength="50" required>
+				<div class="error-container" ng-show="userForm.ConfirmPassword.$dirty && userForm.ConfirmPassword.$invalid">
+					<small class="text-red" ng-show="userForm.ConfirmPassword.$error.required">
+						<span translate="USERS.USER_NAME_VALIDATION_REQUIRED"></span>
+					</small>
+					<small class="text-red" ng-show="userForm.ConfirmPassword.$error.minlength">
+						<span translate="USERS.PASSWORD_VALIDATION_MIN_CHARACTERS_8"></span>
+					</small>
+					<small class="text-red" ng-show="userForm.ConfirmPassword.$error.maxlength">
+						<span translate="USERS.PASSWORD_VALIDATION_MAX_CHARACTERS_50"></span>
+					</small>
+					<small class="text-red" ng-show="userForm.ConfirmPassword.$error.compareTo">
+						<span translate="USERS.PASSWORD_VALIDATION_CONFIRMPASSWORD_MISMATCH"></span>
+					</small>
+				</div>
+			</div>
+
+			<div class="formFieldWrap">
+				<label class="field-title contactNameField" for="contactNameField">
+					{{ 'USERS.FIRST_NAME' | translate }}
+					<span style="color: red">(*)</span>
+				</label>
+				<input type="text" name="FirstName" ng-model="addUser.FullName" class="contactField requiredField" ng-minlength="4" ng-maxlength="200 " required>
+				<div class="error-container" ng-show="userForm.FirstName.$dirty && userForm.FirstName.$invalid">
+					<small class="text-red" ng-show="userForm.FirstName.$error.required">
+						<span translate="USERS.USER_NAME_VALIDATION_REQUIRED"></span>
+					</small>
+					<small class="text-red" ng-show="userForm.FirstName.$error.minlength">
+						<span translate="USERS.FULL_NAME_VALIDATION_MIN_CHARACTERS_4"></span>
+					</small>
+					<small class="text-red" ng-show="userForm.FirstName.$error.maxlength">
+						<span translate="USERS.FULL_NAME_VALIDATION_MAX_CHARACTERS_200"></span>
+					</small>
+				</div>
+			</div>
+
+			<div class="formFieldWrap">
+				<label class="field-title contactNameField" for="contactNameField">
+					{{ 'USERS.EMAIL' | translate }}
+					<span style="color: red">(*)</span>
+				</label>
+				<input type="email" name="Email" ng-model="addUser.Email" class="contactField requiredField" ng-maxlength="100" required>
+				<div class="error-container" ng-show="userForm.Email.$dirty && userForm.Email.$invalid">
+					<small class="text-red" ng-show="userForm.Email.$error.required">
+						<span translate="USERS.USER_NAME_VALIDATION_REQUIRED"></span>
+					</small>
+					<small class="text-red" ng-show="userForm.Email.$error.email">
+						<span translate="USERS.EMAIL_VALIDATION"></span>
+					</small>
+					<small class="text-red" ng-show="userForm.Email.$error.maxlength">
+						<span translate="USERS.USER_NAME_VALIDATION_MAX_CHARACTERS_100"></span>
+					</small>
+				</div>
+			</div>
+
+			<div class="formFieldWrap">
+				<label class="field-title contactNameField" for="contactNameField">
+					{{ 'USERS.OFFICE_PHONE' | translate }}
+					<span style="color: red">(*)</span>
+				</label>
+				<input type="number" name="OfficePhone" ng-model="addUser.OfficePhone" class="contactField requiredField" ng-minlength="6" ng-maxlength="20" required>
+				<div class="error-container" ng-show="userForm.OfficePhone.$dirty && userForm.OfficePhone.$invalid">
+					<small class="text-red" ng-show="userForm.OfficePhone.$error.required">
+						<span translate="USERS.USER_NAME_VALIDATION_REQUIRED"></span>
+					</small>
+					<small class="text-red" ng-show="userForm.OfficePhone.$error.minlength">
+						<span translate="USERS.OFFICE_PHONE_VALIDATION_MIN_CHARACTERS_6"></span>
+					</small>
+					<small class="text-red" ng-show="userForm.OfficePhone.$error.maxlength">
+						<span translate="USERS.OFFICE_PHONE_VALIDATION_MAX_CHARACTERS_20"></span>
+					</small>
+					<small class="text-red" ng-show="userForm.OfficePhone.$error.number">
+						<span translate="USERS.OFFICE_PHONE_VALIDATION_ONLY_DIGITS"></span>
+					</small>
+				</div>
+			</div>
+
+			<div class="formFieldWrap">
+				<label class="field-title contactNameField" for="contactNameField"> {{ 'USERS.USER_STATUS' | translate }} </label>
+				<input id="user-statusEnabledID" class="checkbox" ng-class="{'gs-ug-input-checkbox-rtl':language=='ar-AE'}" type="checkbox" ng-model="addUser.activeState"
+					ng-change="selectUserStatus(addUser.activeState)">
+				<label class="checkbox-label" for="user-statusEnabledID">{{ 'USERS.ENABLED' | translate }}</label>
+				<div class="clear"></div>
+			</div>
+
+			<div class="formFieldWrap">
+				<label class="field-title contactNameField" for="contactNameField">
+					{{ 'USERS.SELECT_GROUP' | translate }}
+					<span style="color: red">(*)</span>
+				</label>
+				<select class="contactField" ng-model="selectedUserGroup" ng-options="group as group.Name for group in userGroups" ng-change="changeCreateUUserGroup(selectedUserGroup)">
+				</select>
+			</div>
+			<div class="container heading-style-5">
+				<h4 class="heading-title" translate="USER_GROUP.PERMISSION_SCHEME"></h4>
+				<i class="fa fa-key heading-icon"></i>
+				<div class="line bg-black"></div>
+			</div>
+			<div class="container">
+				<div class="gs-ps-crps-table" ng-class="{'gs-ps-crps-table-ar':language=='ar-AE'}" ng-repeat="modul in modulePermissions">
+					<div class="container">
+						<table cellspacing="0" class="table">
+							<tbody>
+								<tr>
+									<th style="text-align:left;"><input class="checkbox" type="checkbox" ng-disabled="true"> <span>{{language=='ar-AE' ? modul.ModuleName_Ar : modul.ModuleName}}</span></th>
+								</tr>
+								<tr ng-repeat="Permision in modul.permissions">
+									<td class="table-sub-title"><input class="checkbox" type="checkbox" ng-model="Permision.isClicked" ng-disabled="Permision.isDisabled"> <span>{{language=='ar-AE' ?
+											Permision.Name_Ar : Permision.Name}}</span></td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- 			<div class="container ug-container-margin-20">
+				<button type="submit" ng-disabled="userForm.$invalid" ng-class="userForm.$invalid ? 'button-gray' :'button-green'" class="login-button button button-small  button-fullscreen full-bottom"
+					translate="PERMISSION_SCHEME.SUBMIT" ng-click="selectSaveUser()" style="height: 40px;border-radius:5px;margin: 0 auto;"></button>
+			</div>
+			 -->
+			<div class="container ug-container-margin-20">
+				<div class="one-half">
+					<!-- <button ng-disabled="userForm.$invalid" ng-class="userForm.$invalid ? 'button-gray' :'button-green'" class="button button-small  button-fullscreen full-bottom"
+					translate="BOOKMARK.SAVE" ng-click="selectSaveUser()"></button> -->
+					<a href="#" class="button button-icon user-btn-icon-white" ng-class="userForm.$invalid ? 'button-gray' :'button-green'" ng-click="selectSaveUser()" a-disabled="userForm.$invalid">
+						<i class="fa fa-floppy-o"></i>
+						{{ 'BOOKMARK.SAVE' | translate }}
+					</a>
+				</div>
+				<div class="one-half last-column">
+					<!-- 			       <button ng-click="deleteUser();" ng-show="addUser.UserID != null" class="button button-small button-fullscreen full-bottom"
+					translate="BOOKMARK.SAVE"></button> -->
+					<a href="#" class="button button-icon button-red user-btn-icon-white" ng-click="deleteUser()" ng-show="addUser.UserID != null">
+						<i class="fa fa-trash-o"></i>
+						{{ 'GEOSERV.DELETE' | translate }}
+					</a>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+
+<div id="userDetailToolBarDiv" class="share-bottom toolbarBackground" style="padding-top: 10px; padding-bottom: 0px;">
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" style="height: 45px;">
+		<i class="fa fa-user"></i>
+		<em style="line-height: 40px;">{{'loginas'|translate}} [{{loginUserName}}]</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ui-sref="dashboard">
+		<i class="fa fa-home"></i>
+		<em style="line-height: 40px;" translate="home"></em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="changeLocaleTo('en-US')" ng-if="language =='ar-AE'">
+		<i class="fa fa-language"></i>
+		<em style="line-height: 40px;">English</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="changeLocaleTo('ar-AE')" ng-if="language =='en-US'">
+		<i class="fa fa-language"></i>
+		<em style="line-height: 40px;">العربية</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" ng-click="logout()" style="height: 45px;">
+		<i class="fa fa-sign-out"></i>
+		<em style="line-height: 40px;" translate="logout"></em>
+	</a>
+</div>
+

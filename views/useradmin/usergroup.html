@@ -1,0 +1,98 @@
+<div id="divUsergroup_views" ng-switch="usrGrp.displayView" ng-class="{'gs-ug-text-rtl': language=='ar-AE'}">
+	<div ng-switch-when="GSUSERGROUPSVIEW" ng-controller="userGroupsViewCtrl">
+		<div class="container ug-container-margin-rl-20">
+			<input type="text" placeholder="{{ 'USER_GROUP.SEARCH' | translate }}" class="gs-u-select" ng-model="searchUsrGrp">
+		</div>
+	   <div class="decoration"></div>      
+	   <div class="container ug-container-margin-20" ng-repeat="group in userGroupsView.groups | filter:searchUsrGrp">
+		   	 <a ng-click="selectUsrGrpsRow(group)" class="user-list-item" ng-class="{'ug-list-ar': language=='ar-AE'}">
+                  <img src="images/geoserv/user-group-24x24.png" alt="img">
+                  <div class="gs-u-list-title-div" ng-class="{'gs-u-list-title-div-ar':language=='ar-AE'}">
+					<div>
+						<span>{{group.Name}}</span>
+					</div>
+				</div>
+                  <i class="fa" ng-class="language=='en-US'? 'fa-chevron-right' :'fa-chevron-left'"></i>
+          	</a>
+          	<div class="decoration"></div>  
+	   </div> 
+	</div>
+	
+	<div ng-switch-when="GSCREATEUSERGROUPSVIEW" ng-controller="createUserGroupsViewCtrl">
+	
+		<div class="container ug-container-margin-20">
+		    <div class="one-half-responsive">
+		        <h6>{{ 'USER_GROUP.GROUP_NAME' | translate }}</h6>
+		    </div>
+		    <div class="one-half-responsive last-column">
+		        <input class="text-field green-field" type="text" ng-model="userGroup.createUserGroup.groupName" ng-disabled="userGroup.createUserGroup.groupID==1">
+		    </div>
+		    <div class="clear"></div>
+		</div> 
+		<div class="container ug-container-margin-20">
+		    <div class="one-half-responsive">
+		        <h6>{{ 'USER_GROUP.DESCRIPTION' | translate }}</h6>
+		    </div>
+		    <div class="one-half-responsive last-column">
+		        <textarea rows="6" cols="50" class="green-field" ng-model="userGroup.createUserGroup.description" ng-disabled="userGroup.createUserGroup.groupID==1"> </textarea>
+		    </div>
+		    <div class="clear"></div>
+		</div> 
+		<div class="container ug-container-margin-20">
+		    <input id="check-label-1" class="checkbox" ng-class="{'gs-ug-input-checkbox-rtl': language=='ar-AE'}" type="checkbox" ng-model="userGroup.createUserGroup.enabled" ng-change="isEnabledValueChanged(userGroup.createUserGroup.enabled)" ng-disabled="userGroup.createUserGroup.groupID==1">
+			<label class="checkbox-label" for="check-label-1">{{ 'USER_GROUP.ENABLED' | translate }}</label>
+		    <div class="clear"></div>
+		</div>
+		<div class="container ug-container-margin-20">
+		    <input id="check-label-2" class="checkbox" ng-class="{'gs-ug-input-checkbox-rtl': language=='ar-AE'}" type="checkbox" ng-model="userGroup.createUserGroup.administrationMode" ng-change="isAdministrationModeValueChanged(userGroup.createUserGroup.administrationMode)" ng-disabled="userGroup.createUserGroup.groupID==1">
+			<label class="checkbox-label" for="check-label-1">{{ 'USER_GROUP.ADMINISTRATION_MODE' | translate }}</label>
+		    <div class="clear"></div>
+		</div>
+		
+		<div class="container ug-container-margin-20">
+		    <a ng-click="onUserGroupSelectPermissions()" class="button button-icon button-green"><i class="fa fa-angle-right"></i>{{ 'USER_GROUP.PERMISSION_SCHEME' | translate }}</a>
+		    <div class="clear"></div>
+		</div>
+    </div>
+
+	<div ng-switch-when="GSUSERGROUPPERMISSIONVIEW" ng-controller="userGroupPermissionCtrl">
+		<div class="container ug-container-margin-20">
+      		<div class="one-half-responsive">
+		        <h6>{{ 'USER_GROUP.SELECT_PERMISSION_SCHEME' | translate }}</h6>
+		    </div>
+		    <div class="one-half-responsive last-column">
+		    	<select style="width:100%; height:30px;font-size:medium;"
+							ng-model="userGroup.permissionUserGroup.selectedPermissionScheme"
+							ng-options="ugPermission as (language=='ar-AE' ? ugPermission.NAME_AR : ugPermission.NAME) for ugPermission in userGroup.permissionUserGroup.permissionSchemes" ng-change="changeUGPermissionScheme(userGroup.permissionUserGroup.selectedPermissionScheme)" ng-disabled="userGroup.createUserGroup.administrationMode">
+		    	</select>
+		    </div>
+		    <div class="clear"></div>
+		</div>
+		
+		<div class="container ug-container-margin-20">
+			
+			<div class="gs-ps-crps-table" ng-class="{'gs-ps-crps-table-ar':language=='ar-AE'}" ng-repeat="modul in userGroup.permissionUserGroup.modulePermissions">
+				<div class="container">
+					<table cellspacing="0" class="table">
+						<tbody>
+							<tr>
+								<th style="text-align:left;"><input class="checkbox" type="checkbox" ng-model="modulePermissionSchemes" ng-change="selectAllmodulePermissionSchemes(modulePermissionSchemes,modul.ModuleID)" ng-disabled="true">
+									<span>{{language=='ar-AE' ? modul.ModuleName_Ar : modul.ModuleName}}</span>
+								</th>
+							</tr>
+							<tr ng-repeat="Permision in modul.permissions">
+								<td class="table-sub-title"><input class="checkbox" type="checkbox" ng-model = "Permision.isClicked" ng-disabled="true"> 
+									<span>{{language=='ar-AE' ? Permision.Name_Ar : Permision.Name}}</span>
+								</td>
+							</tr>
+	
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+		
+	</div>
+	
+</div>

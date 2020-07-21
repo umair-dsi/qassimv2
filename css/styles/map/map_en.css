@@ -1,0 +1,378 @@
+html, body {
+	height: 100% !important;
+}
+
+.bottom-header {
+	background-color: #fff;
+}
+
+.equal-top {
+	width: 33.333333%;
+	padding-left: 10px;
+	padding-right: 10px;
+	position: relative;
+	float: left;
+	background-color: #fff;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.equal-top img {
+	margin: 0 auto !important;
+	display: block !important;
+	height: 27px !important;
+}
+.portfolio-filter-item {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.selected-filter-custom i{
+    color: #ffffff !important;
+}
+.snap-drawer{
+    width: 266px !important;
+}
+.filter-category {
+  
+    border-left: 1px solid #cacaca !important;
+}
+.report_cont .report-region{
+	width: 100%;
+	display: block;
+	border-bottom: 2px solid #ccc;
+	height: 35px;
+	margin-top: 4px;
+	overflow: hidden;
+}
+
+.report_cont .report-area{
+	width: 100%;
+	display: block;
+	border-bottom: 2px solid #ccc;
+	height: 35px;
+	margin-top: 4px;
+	margin-left: 15px;
+	overflow: hidden;
+}
+
+.report_text{
+	width: 70%;
+	float: left;
+}
+.report_icon{
+	width: 20%;
+	float: right;
+	text-align: center;
+}
+.report_icon i{
+	font-size: 14px;
+	margin-left: 5px;
+	margin-right: 5px;
+	color: #499032;
+}
+
+.task_list{
+	margin-top: 10px;
+}
+.task_list .accordion {
+	background-color: #eee;
+	color: #444;
+	cursor: pointer;
+	padding: 10px;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+	font-size: 14px;
+	transition: 0.4s;
+  }
+  
+  .task_list .accordion:active, .task_list .accordion:hover {
+	background-color: #ccc;
+  }
+  
+  .task_list .accordion:after {
+		content: '\002B';
+		color: #499032;
+		font-weight: bold;
+		font-size: 15px;
+		float: right;
+		margin-left: 5px;
+	}
+	
+  .task_date{
+		font-size: 13px;
+		color: #499032;
+	}
+  
+  .task_list .active:after {
+		content: "\2212";
+  }
+  
+  .task_list .panel {
+		padding: 0px 10px 5px 10px;
+		background-color: white;
+		overflow: hidden;
+		transition: max-height 0.2s ease-out;
+		border-left: 1px solid #eee;
+		border-right: 1px solid #eee;
+		border-bottom: 1px solid #eee;
+  }
+  .task_date{
+		font-size: 13px;
+		color: #499032;
+		padding-left: 15px;
+}
+.task_list .panel p{
+	margin-bottom: 0px;
+}
+
+label.myLabel input[type="file"] {
+    position:absolute;
+    top: -1000px;
+}
+
+/***** Example custom styling *****/
+.myLabel {
+	border-radius: 0px;
+	padding: 0px 6px;
+	background: #499032;
+	display: inline-block;
+	margin-left: 0px;
+	color: #fff;
+	line-height: 22px;
+}
+.myLabel:hover {
+    background: #499032;
+}
+.myLabel:active {
+    background: #499032;
+}
+.myLabel :invalid + span {
+    color: #ffffff;
+}
+.myLabel :valid + span {
+    color: #ffffff;
+}
+
+.task_list .panel form label {
+	margin-bottom: 10px;
+}
+.task_list .panel form textarea {
+	margin-bottom: 5px;
+	padding: 10px;
+	border: 1px solid #ccc;
+
+}
+
+.task_btn{
+	background-color: #499032;
+	border: none;
+	color: white;
+	padding: 7px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+/***** 4th april 2019 7pm start*****/
+
+
+
+/* The Modal (background) */
+.task_list .panel .modal {
+	display: block; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 5px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .task_list .panel .modal-content {
+	position: relative;
+	background-color: #fefefe;
+	margin: auto;
+	padding: 0;
+	border: 1px solid #888;
+	width: 98%;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+  }
+  
+  /* Add Animation */
+  @-webkit-keyframes animatetop {
+	from {top:-300px; opacity:0} 
+	to {top:0; opacity:1}
+  }
+  
+  @keyframes animatetop {
+	from {top:-300px; opacity:0}
+	to {top:0; opacity:1}
+  }
+  
+  /* The Close Button */
+  .task_list .panel .close {
+	color: white;
+	float: right;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 20px;
+  }
+  
+  .task_list .panel .close:hover,
+  .task_list .panel .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+  }
+  
+  .task_list .panel .modal-header {
+	padding: 2px 10px;
+	background-color: #499032;
+	color: white;
+  }
+  
+  .task_list .panel .modal-body {padding: 5px 10px;}
+  
+  .task_list .panel .modal-footer {
+	padding: 2px 16px;
+	background-color: #499032;
+	color: white;
+  }
+  .modal-header h4{
+	  color: #ffffff;
+	  font-size: 14px;
+    display: inline;
+	}
+	
+.Inside_cont:before,
+.Inside_cont:after {
+  display: table;
+  content: " ";
+  }
+
+.Inside_cont:after  
+ {
+  clear: both;
+}
+.left_u{
+	width: 88%;
+	float: left;
+}
+.right_u{
+	width: 12%;
+	float: left;
+	text-align: center;
+}
+.right_u .task_btn {
+	padding: 3px 6px;
+}
+
+
+
+/********************************* Style-nested-accordian-start *********************************/
+
+.collapsible {
+  background-color: #499032;
+  color: white;
+  cursor: pointer;
+  padding: 8px 5px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+	font-size: 15px;
+}
+
+.collapsible .active, .collapsible:hover {
+  background-color: #499032;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  overflow: auto;
+  transition: max-height 0.2s ease-out;
+	background-color: #ffffff;
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+/********************************* Style-nested-accordian-end *********************************/
+.task_binnd{
+	margin-bottom: 2px;
+}
+
+#header-fixed .open-left-sidebar i{
+	background: #499032;
+	color: #ffffff !important;
+	border-radius: 50%;
+}
+
+/***** 4th april 2019 7pm end*****/
+
+
+
+/***** 10th april 2019 start*****/
+.panel .task_btn{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+textarea{
+	padding: 5px !important;
+	color: #686868 !important;
+	border-color: #ccc !important;
+}
+.panel h6{
+	  font-size: 12px;
+    line-height: 16px;
+    color: #499032;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding: 2px;
+		font-weight: bold;
+		border-bottom: 2px solid #ddd;
+    margin-bottom: 5px;
+}
+
+.upload_info{
+	display: inline-block;
+	width: 100%;
+	clear: both;
+	padding-left: 6px;
+	background-color: #fdfdfd;
+}
+.left_upload_i{
+	float: left;
+	display: block;
+	width: 80%;
+}
+.right_upload_i{
+	float: left;
+	display: block;
+	width: 20%;
+	text-align: center;
+	color: #ea4335;
+}
+/***** 10th april 2019 end*****/

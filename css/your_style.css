@@ -1,0 +1,405 @@
+.preloader-logo-mbrsc {
+	width: 151px;
+	height: 70px;
+	background-image: url(../images/mbrsc/mbrsc-logo.png);
+	background-size: 151px 70px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+	margin-top: 0px;
+}
+
+.preloader-logo-dubai-gov {
+	width: 162px;
+	height: 70px;
+	background-image: url(../images/mbrsc/gov-logo.png);
+	background-size: 162px 70px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+	margin-top: 0px;
+}
+
+.text-red {
+	 color : #F27366 !important;
+}
+
+.button-gray {
+	background-color: gray;
+	color: #FFFFFF;
+}
+
+.input-xs {
+	height: 22px;
+	padding: 2px 5px;
+	font-size: 12px;
+	line-height: 1.5;
+	border-radius: 3px;
+}
+
+.menu-item-ar i:first-child {
+	color: #499032;
+	position: absolute;
+	font-size: 18px;
+	width: 20px;
+	text-align: center;
+	top: 57%;
+	margin-top: -12px;
+	margin-right: 15px;
+}
+
+.menu-item-ar em {
+	font-family: 'Roboto', sans-serif;
+    color: #fff;
+    display: block;
+    line-height: 40px;
+    font-style: normal;
+    padding-right: 50px;
+    font-size: 12px;
+    font-weight: lighter;
+}
+
+.menu-item i:first-child{
+    color:#499032;
+    position:absolute;
+    font-size:18px;
+    width:20px;
+    text-align:center;
+    top:57%;
+    margin-top:-12px;
+    margin-left:15px;
+}
+
+.menu-item em{
+    font-family:'Roboto', sans-serif;
+    color:#fff;
+    display:block;
+    line-height:40px;
+    font-style:normal;
+    padding-left:50px;
+    font-size:12px;
+    font-weight:lighter;
+}
+
+.user-list-follow-ar img {
+	float: right;
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+}
+
+.user-list-follow a {
+	float: right;
+}
+
+.user-list-follow-ar a {
+	float: left;
+}
+
+.user-list-follow-ar strong {
+	float: right;
+	font-size: 14px;
+	color: #1f1f1f;
+	padding-right: 15px;
+}
+
+.user-list-follow-ar strong em {
+	font-size: 11px;
+	font-style: normal;
+	color: #666666;
+	margin-top: -10px;
+	display: block;
+	font-weight: 400;
+}
+
+#ajaxloader {
+	position: fixed;
+	z-index: 2500;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #FFF;
+	z-index: 99999999;
+	opacity: 0.8;
+}
+
+#ajaxstatus {
+	position: fixed;
+	left: 0;
+	top: 0px;
+	width: auto;
+	border-radius: 0;
+	color: #00aeef;
+	z-index: 0;
+	padding: 0;
+	font-size: 20px;
+	font-weight: 700;
+	width: 100%;
+	height: 100%;
+	background-position: center center;
+	background-size: 10%;
+	font-size: 0;
+	-webkit-transition: .8s ease;
+	transition: .8s ease;
+	background: url(../images/preloader-final-render.gif) #000
+		center center no-repeat;
+}
+
+.layerlist img {
+	margin: 6px 0px 0px 0px;
+	display: inline;
+}
+.input-layerlist-en{
+	width: 14px;
+	margin-left: 5px;
+}
+
+.input-layerlist-ar{
+	width: 14px;
+	margin-right: 5px;
+	float: right;
+}
+.layerlist label{
+	display: inline;
+}
+.strong-layerlist-en{
+	padding-left: 5px;
+	width:150px;
+	word-break: break-all;
+}
+.strong-layerlist-ar{
+	padding-left: 0px;
+	width:150px;
+	word-break: break-all;
+}
+.laryerlist-h5{
+	padding-left: 5px;
+	width:150px;
+	word-break: break-all;
+	display: inline;
+}
+/* .custom-line-repeat {
+	background: url("../images/mbrsc/bg.png");
+} */
+
+.toolbarBackground {
+	background: url(../images/menubackground.png) repeat;
+	
+}
+/* .toolbarBackground em{
+	color: white !important;
+}
+.toolbarBackground i{
+	color: #00aeef !important;
+} */
+
+.contactField{
+	height:30px !important;	
+}
+
+em{
+	font-style:normal;
+}
+
+.selected-filter-custom{
+    background-color:#302F2F;
+    color:#FFFFFF!important;
+    transition:all 200ms ease;
+    font-size:small;
+}
+
+a i{
+	color: #00aeef !important;
+}
+
+
+@media ( min-width :768px) {
+	.blog-posts {
+		width: 65%;
+		float: left;
+	}
+	.blog-sidebar {
+		margin-left: 5%;
+		width: 30%;
+		float: left;
+	}
+}
+
+.blog-post-image img {
+	display: block;
+	width: 100%;
+}
+
+.blog-post-image {
+	margin-bottom: 30px;
+}
+
+.blog-post-date {
+	width: 50%;
+	float: left;
+}
+
+.blog-post-text {
+	margin-bottom: 20px;
+}
+
+.blog-post-date i {
+	margin-right: 10px;
+}
+
+.blog-post-more {
+	text-align: right;
+}
+
+.blog-post-more a i {
+	margin-left: 10px;
+}
+
+.blog-search {
+	height: 45px;
+	display: block;
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+	border: solid 1px rgba(0, 0, 0, 0.1);
+	transition: all 200ms ease;
+	background-color: #FFFFFF;
+}
+
+.blog-search:focus {
+	border: solid 1px #27ae60;
+	transition: all 200ms ease;
+}
+
+.blog-gallery li {
+	width: 50% !important;
+	transform: scale(1, 1);
+	-webkit-transform: scale(1, 1);
+	transition: all 200ms ease;
+}
+
+.blog-gallery li:hover {
+	transform: scale(0.9, 0.9);
+	-webkit-transform: scale(0.9, 0.9);
+	transition: all 200ms ease;
+}
+
+.blog-gallery {
+	margin-bottom: 0px !important;
+}
+
+.blog-category {
+	margin-bottom: 0px;
+}
+
+.blog-category li a {
+	color: rgba(0, 0, 0, 0.6);
+}
+
+.blog-category li {
+	list-style: none;
+	line-height: 24px;
+	transition: all 200ms ease;
+}
+
+.blog-category li i {
+	margin-right: 20px;
+}
+
+.blog-category li:hover {
+	padding-left: 10px;
+	transition: all 200ms ease;
+}
+
+#divGoogleBaseLayer
+{
+    z-index: 1 !important;
+}
+
+.leaflet-image-layer
+{
+    z-index: -1 !important;
+}
+.leaflet-map-pane
+{
+    z-index: 2 !important;
+}
+
+.leaflet-control-container{
+	z-index:1000;
+}
+.social-ball-custom {
+    border-radius: 5px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.social-ball-custom i {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.blog-sidebar-search input {
+	padding-right: 30px;
+}
+
+.blog-sidebar-categories-ar a i{
+	position: relative;
+	float:left;
+}
+
+.bg-custom-1{
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+	background-image: url('../images/mbrsc/Space-Wallpaper.png');
+	background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.bg-custom-2{
+	background-image: url('../images/mbrsc/Outer-Space-Wallpapers-2.png');
+}
+
+.button-custom {
+    background-color: #428bca;
+    color: #FFFFFF;
+}
+input:focus{
+	    border-bottom: solid 2px #428bca !important;
+}
+
+.custum-bg{
+	background-image: url('../images/mbrsc/bg.png');
+}
+
+.cover-screen-handling {
+	margin-top: 0px !important;
+}
+
+.one-half-cust{
+     float:left;
+     margin-right:10%;
+}
+
+/* alert */
+
+.lnv-mask {
+	z-index: 100000 !important;
+}
+
+.lnv-dialog {
+	z-index: 100001 !important;
+}
+
+.custom-color {
+	color: #909090 !important;
+}

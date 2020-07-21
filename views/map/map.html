@@ -1,0 +1,181 @@
+
+<!-- html body -->
+<div id="header-fixed" ng-init="init()">
+	<a ng-class="language == 'en-US' ? 'open-left-sidebar' : 'open-right-sidebar'" href="javascript:void(0);" ng-click="onClickMenu()">
+		<i class="fa fa-2x fa-navicon"></i>
+	</a>
+	<h4 class="heading-title" style="text-align: center;">
+		<img src="images/mbrsc/logo-quassim.png">
+	</h4>
+	<a ng-class="language == 'en-US' ? 'open-right-sidebar' : 'open-left-sidebar'" href="javascript:void(0);" ng-click="onClickToolbar();">
+		<i class="fa fa-2x fa-ellipsis-v"></i>
+	</a>
+	<div class="bottom-header">
+		<div class="equal-top">
+			<img style="float:left" src="images/mbrsc/v2030.png">
+		</div>
+		<div class="equal-top">
+				<img src="images/mbrsc/falcon-eye-logo-1-small.png">
+		</div>
+		<div class="equal-top">
+				<img style="float:right" src="images/mbrsc/logo1.png">
+		</div>
+	</div>
+</div>
+
+<div class="all-elements">
+	<div class="snap-drawers">
+		<div class="snap-drawer" ng-class="language == 'en-US' ? 'snap-drawer-left' : 'snap-drawer-right'" style="overflow-x: hidden;">
+            <div class="sidebar-header" style="height: 40px;">
+                <a ui-sref="maplist">
+                    <i class="fa fa-2x" ng-class="language == 'en-US' ? 'fa-chevron-left' : 'fa-chevron-right'"></i>
+                </a>
+                <!-- <a ui-sref="maplist">
+                        <i class="fa fa-2x fa-home"></i>
+                    </a>-->
+                <!-- <a ng-click="onClickStatChangeCustom('layers')">
+                    <i class="fa fa-2x fa-globe"></i>
+                </a>
+                <a ng-click="onClickStatChangeCustom('search')">
+                    <i class="fa  fa-2x fa-search"></i>
+                </a> -->
+                    <!-- <a ui-sref="map.bookmark" style="margin-top:8px;">
+                    <i class="fa  fa-2x fa-map-marker"></i>
+                </a>
+                <a ui-sref="map.mail" style="margin-top:8px;">
+                    <i class="fa  fa-2x fa-envelope-o"></i>
+                </a> -->
+                            <!-- <a class="close-sidebar" ui-sref="map.search" style="margin-top:8px;">
+                    <i class="fa  fa-2x fa-search"></i>
+                </a> -->
+            </div>
+			<div ui-view style="position: absolute;top: 40px;bottom: 0px;left: 0px;right: 0px;"></div>
+		</div>
+		<!--Right Sidebar -->
+	<!-- 	<div class="snap-drawer snap-drawer-right">
+			<div class="sidebar-header">
+				<a class="close-sidebar" href="#" style="float:none;" ng-click="closeRightSideBar()">
+					<i class="fa fa-times"></i>
+				</a>
+				<div ng-include="'views/map/sidebarright.html'"></div>
+			</div>
+		</div> -->
+		<div id="content" class="snap-content" data-snap-ignore="true">
+			<div style="width:100%;height:100%;padding-top: 85px;" ng-show="toc_layers.length > 0">
+				<div id="map-canvas" style="width:100%;height:100%;">
+					<div id="divScale" style="left:5px;z-index:1000;height:17px;bottom:50px;position:absolute;background:white;padding-left: 2px;padding-right:2px;display: none;"></div>
+					<div style="right: 5px;bottom:20px;position:absolute;height:30px;width:400px;z-index: 1000;display:none">
+						<input id="ex14" type="text" data-slider-ticks="[0, 100, 200, 300, 400]" data-slider-ticks-snap-bounds="30" data-slider-ticks-labels="['$0', '$100', '$200', '$300', '$400']"
+							ticks_positions="[0, 30, 60, 70, 90, 100]" />
+					</div>
+				</div>
+			</div>
+			<div ng-if="!loading">
+				<div ng-if="toc_layers.length < 1 " style="width:100%;height:100%;padding-top: 65px;" class="static-notification bg-red-dark tap-dismiss">
+					<p translate="MapNoLayerError"></p>
+				</div>
+			</div>
+			<div ng-show="timelineCtrl.layers.length>0 && timelineCtrl.filtertype == 'filteryear'" id="timeSilderDiv" class="share-bottom active-share-bottom" style="background-color:rgba(255, 255, 255,  0.9);">
+				<div class="closedt" style="padding-left:10px;padding-right: 10px;">
+					<span translate="Year"></span>
+					<i class="fa fa-2x fa-times" ng-click="closeSliderBox();" ng-style="(language=='en-US') && {'float': 'right'} || {'float': 'left'}"></i>
+					<select size="1" class="contactField input-xs" ng-show="years.length > 0" ng-change="onYearChanged()" ng-model="selectedYearLocal" ng-options="year as year for year in years"
+						id="cboYearTimeslider" style="margin-bottom: 5px;" class="ng-pristine ng-valid ng-touched"></select>
+				</div>
+				<div ng-show="months.length > 1" id="divTimeSliderContainer" style="padding-left:10px;padding-right: 10px;">
+					<time-Slider></time-Slider>
+				</div>
+			</div>
+			<a href="#" class="social-ball-custom location-a" style="position: absolute;bottom: 15px; right: 2px;background-color: #fff;" ng-click="findCurrentLocation();"><i class="fa fa-stop-circle-o style="color:#737373 !important;"></i></a>
+			<a href="#" class="social-ball-custom"  ng-show="timelineCtrl.layers.length>0 && timelineCtrl.filtertype == 'filteryear'" id="liSliderOpen" style=" box-shadow: 0 1px 5px rgba(156, 156, 156, 0.65);bottom: 50px; margin: 0 auto; display: block;background-color: #ff0000; border-radius: 50%;" ng-click="openSliderDiv();"><i class="fa fa-chevron-up" style="color:#ffffff !important;"></i></a>
+		</div>
+	</div>
+</div>
+
+
+
+<div id="toolBarDiv" class="share-bottom toolbarBackground">
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#">
+			<i class="fa fa-user"></i>
+			<em>{{'loginas'|translate}} [{{loginUserName}}]</em>
+	</a>
+	<!-- <a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" ui-sref="dashboard">
+		<i class="fa fa-home"></i>
+		<em translate="home"></em>
+	</a> -->
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" ng-click="changeLocaleTo('en-US')" ng-if="language =='ar-AE'">
+		<i class="fa fa-language"></i>
+		<em>English</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" ng-click="changeLocaleTo('ar-AE')" ng-if="language =='en-US'">
+		<i class="fa fa-language"></i>
+		<em>العربية</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" ng-click="logout()">
+		<i class="fa fa-sign-out"></i>
+		<em translate="logout"></em>
+	</a>
+	<!-- <a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" ng-click="logout()" ng-if="userInfo.username == 'guest'">
+		<i class="fa fa-sign-in"></i>
+		<em translate="login"></em>
+	</a> -->
+</div>
+
+
+
+<div id="myBookmarkFolderActionBarId" class="share-bottom toolbarBackground" style="padding-top: 10px; padding-bottom: 0px;">
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" style="height: 45px;" ng-click="selectAddBookmark(true)">
+		<i class="fa fa-bookmark-o"></i>
+		<em style="line-height: 40px;" translate="BOOKMARK.ADD_BOOKMARK"></em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="selectAddBookmarkFolder(true)">
+		<i class="fa fa-folder-open-o"></i>
+		<em style="line-height: 40px;" translate="BOOKMARK.ADD_BOOKMARK_FOLDER"></em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" ng-click="selectCancelBookmark()" style="height: 45px;">
+		<i class="fa fa-ban"></i>
+		<em style="line-height: 40px;" translate="BOOKMARK.CANCEL"></em>
+	</a>
+</div>
+
+<div id="bookmarkFolderActionBarId" class="share-bottom toolbarBackground" style="padding-top: 10px; padding-bottom: 0px;">
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" style="height: 45px;" ng-click="selectAddBookmark(true)">
+		<i class="fa fa-bookmark-o"></i>
+		<em style="line-height: 40px;" translate="BOOKMARK.ADD_BOOKMARK"></em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="selectAddBookmarkFolder(true)">
+		<i class="fa fa-folder-open-o"></i>
+		<em style="line-height: 40px;" translate="BOOKMARK.ADD_BOOKMARK_FOLDER"></em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="selectAddBookmarkFolder(false)">
+		<i class="fa fa-edit"></i>
+		<em style="line-height: 40px;" translate="BOOKMARK.MODIFY_BOOKMARK_FOLDER"></em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="selectDeleteBookmarkFolder()">
+		<i class="fa fa-trash-o"></i>
+		<em style="line-height: 40px;" translate="BOOKMARK.DELETE_BOOKMARK_FOLDER"></em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" ng-click="selectCancelBookmark()" style="height: 45px;">
+		<i class="fa fa-ban"></i>
+		<em style="line-height: 40px;" translate="BOOKMARK.CANCEL"></em>
+	</a>
+</div>
+
+<div id="bookmarkActionBarId" class="share-bottom toolbarBackground" style="padding-top: 10px; padding-bottom: 0px;">
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" style="height: 45px;" ng-click="selectAddBookmark(false)">
+		<i class="fa fa-edit"></i>
+		<em style="line-height: 40px;" translate="BOOKMARK.MODIFY_BOOKMARK"></em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="selectZoomToBookmark()">
+		<i class="fa fa-search-plus"></i>
+		<em style="line-height: 40px;" translate="BOOKMARK.ZOOM_TO_BOOKMARK"></em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="selectDeleteBookmark()">
+		<i class="fa fa-trash-o"></i>
+		<em style="line-height: 40px;" translate="BOOKMARK.DELETE_BOOKMARK"></em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" ng-click="selectCancelBookmark()" style="height: 45px;">
+		<i class="fa fa-ban"></i>
+		<em style="line-height: 40px;" translate="BOOKMARK.CANCEL"></em>
+	</a>
+</div>

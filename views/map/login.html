@@ -1,0 +1,109 @@
+<!--<script type="text/javascript" charset="utf-8" src="cordova.js"></script>-->
+	<script>
+
+		document.addEventListener("backbutton", function (e) {
+
+			e.preventDefault();
+
+
+			if (confirm("Are you sure you want to logout?")) {
+				/* Here is where my AJAX code for logging off goes */
+			}
+			else {
+				return false;
+			}
+
+		}, false);
+
+	</script>
+<div onload="" ng-controller="LoginCtrl" ng-init="init()" id="divLogin" class="bg-custom-1">
+	<div id="header-fixed">
+		<h4 class="heading-title" style="text-align: center;">
+			<img src="images/mbrsc/logo-quassim.png">
+		</h4>
+		<!-- <a ng-class="language == 'en-US' ? 'open-right-sidebar' : 'open-left-sidebar'" href="javascript:void(0);" ng-click="onClickToolbar();">
+			<i class="fa fa-2x fa-ellipsis-v"></i>
+		</a> -->
+		<div class="bottom-header">
+			<div class="equal-top">
+				<img style="float:left" src="images/mbrsc/v2030.png">
+			</div>
+			<div class="equal-top">
+				<img src="images/mbrsc/falcon-eye-logo-1-small.png">
+			</div>
+			<div class="equal-top">
+				<img style="float:right" src="images/mbrsc/logo1.png">
+			</div>
+		</div>
+	</div>
+
+	<div class="login_box">
+		<!-- <div class="container">
+			<div class="one-half" style="margin-top: 30px;">
+				<img src="images/mbrsc/Government_of_Dubai_logo_white.png" style="width: 140px;height: 54px; margin: 0 auto;">
+			</div>
+			<div class="one-half last-column" style="margin-top: 9px;">
+				<img src="images/mbrsc/mbrsc_logo_white.png" style="width: 140px;height: 89px; margin: 0 auto;">
+			</div>
+			<div class="clear"></div>
+		</div> -->
+		<form name="userForm" ng-submit="submitLoginDetails(login)" class="contactForm" novalidate>
+			<div class="page-login full-bottom">
+				<div class="login-input">
+					<i class="fa fa-user"></i>
+					<input name="username" type="text" placeholder="{{ 'username' | translate }}" ng-model="login.username"
+						   ng-style="(language=='en-US') && {'padding-left':'40px'} || {'padding-right': '40px'}" placeholder="Username" ng-minlength="3" ng-maxlength="150"
+						   required style="background: transparent;line-height: 14px;font-weight: bold;font-size: 14px;">
+					<p ng-show="userForm.username.$dirty && userForm.username.$invalid" style="margin-top: -20px;">
+						<small class="text-red" ng-show="userForm.username.$error.required">
+							<em class="switch-box-subtitle" translate="regNameRequired"></em>
+						</small>
+						<small class="text-red" ng-show="userForm.username.$error.minlength">
+							<em class="switch-box-subtitle" translate="regNameMinLength"></em>
+						</small>
+						<small class="text-red" ng-show="userForm.username.$error.maxlength">
+							<em class="switch-box-subtitle" translate="regNameMaxLength"></em>
+						</small>
+					</p>
+				</div>
+				<div class="login-password">
+					<i class="fa fa-lock"></i>
+					<input name="password" ng-model="login.password" type="password" ng-style="(language=='en-US') && {'padding-left':'40px'} || {'padding-right': '40px'}"
+						   placeholder="{{ 'password' | translate }}" ng-minlength="3" ng-maxlength="150" required style="background: transparent;line-height: 14px;font-weight: bold;font-size: 14px;">
+					<p class="error-container" ng-show="userForm.password.$dirty && userForm.password.$invalid" style="margin-top: -20px;">
+						<small class="text-red" ng-show="userForm.password.$error.required">
+							<em class="switch-box-subtitle" translate="passwordRequired"></em>
+						</small>
+						<small class="text-red" ng-show="userForm.password.$error.minlength">
+							<em class="switch-box-subtitle" translate="passwordMinLength"></em>
+						</small>
+						<small class="text-red" ng-show="userForm.password.$error.maxlength">
+							<em class="switch-box-subtitle" translate="passwordMaxLength"></em>
+						</small>
+					</p>
+				</div>
+
+				<div class="static-notification bg-red-dark tap-dismiss" ng-if="inValidCredential" style="padding:0px;">
+					<p translate="{{warningMsg}}"></p>
+				</div>
+
+				<div class="clear"></div>
+				<div class="btn_login">
+					<button type="submit" class="login-button button button-small  button-fullscreen full-bottom"
+							translate="txtLogin" style="height: 40px;border-radius:5px;margin: 0 auto;"></button>
+				</div>
+				<div class="clear"></div>
+
+			</div>
+		</form>
+
+		<div style="margin: 0 auto;text-align: center;" dir="ltr">
+			<div id="languageChangeId" ng-model="switchStatus" toggle-switch class="switch-large switch-primary" is-english="language" style="margin: 0 auto;" on-change="onLanguageChange"></div>
+		</div>
+	</div>
+
+
+</div>
+
+
+

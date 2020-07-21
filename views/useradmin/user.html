@@ -1,0 +1,227 @@
+<div id="divUseradmin_view" ng-switch="usrGrp.displayView"
+	ng-class="{'gs-ug-text-rtl': language=='ar-AE'}">
+	<div ng-switch-when="GSUSERSVIEW" ng-controller="userViewsCtrl">
+		<div class="container ug-container-margin-rl-20">
+			<input type="text"
+				ng-class="{'gs-ug-text-rtl':language=='ar-AE'}"
+				placeholder="{{ 'USER_GROUP.SEARCH' | translate }}"
+				style="height:40px;width:100%;font-size:medium;" ng-model="searchUsr">
+		</div>
+		<div class="decoration"></div>
+		<div class="container ug-container-margin-20">
+			<select class="gs-u-select"
+							ng-model="user.usersView.group"
+							ng-options="group as group.Name for group in user.usersView.groups" ng-change="changeUUserGroup(user.usersView.group)">
+		    	</select>
+			<div class="clear"></div>
+		</div>
+		<div class="decoration"></div>
+		<div class="container ug-container-margin-20" ng-repeat="user in usersView.usersbyGroupId | filter:searchUsr">
+			<a ng-click="selectUsersRow(user)" class="user-list-item"
+				ng-class="{'ug-list-ar':language=='ar-AE'}"> 
+				<img src="images/geoserv/user-group-24x24.png" alt="img"> 
+				<div class="gs-u-list-title-div" ng-class="{'gs-u-list-title-div-ar':language=='ar-AE'}">
+					<div>
+						<span>User Name:</span> <span> {{user.UserName}}</span>
+					</div>
+					<!-- <br> --> 
+					<div>
+						<span>Full Name:</span> <span> {{user.FullName}}</span>
+					</div>
+				</div>
+				<i class="fa" ng-class="language=='en-US'? 'fa-chevron-right' :'fa-chevron-left'"></i>
+			</a>
+			<div class="decoration"></div>
+		</div>
+
+	</div>
+
+	<div ng-switch-when="GSCREATEUSERSVIEW"
+		ng-controller="createUsersViewCtrl">
+		<div class="container">
+			<div class="one-half-responsive">
+				<div class="container ug-container-margin-20">
+					<div class="one-half-responsive">
+						<h6>{{ 'USERS.USER_NAME' | translate }}</h6>
+					</div>
+					<div class="one-half-responsive last-column">
+						<input class="text-field green-field" type="text" ng-model="user.createUser.UserName" ng-disabled="(user.createUser.UserID!==undefined) ? true : false">
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="container ug-container-margin-20">
+					<div class="one-half-responsive">
+						<h6>{{ 'USERS.PASSWORD' | translate }}</h6>
+					</div>
+					<div class="one-half-responsive last-column">
+						<input class="text-field green-field" type="password" ng-model="user.createUser.Password">
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="container ug-container-margin-20">
+					<div class="one-half-responsive">
+						<h6>{{ 'USERS.CONFIRM_PASSWORD' | translate }}</h6>
+					</div>
+					<div class="one-half-responsive last-column">
+						<input class="text-field green-field" type="password" ng-model="user.createUser.confirmPassword">
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+				<div class="container ug-container-margin-20">
+					<div class="one-half-responsive">
+						<h6>{{ 'USERS.SELECT_GROUP' | translate }}</h6>
+					</div>
+					<div class="one-half-responsive last-column">
+						<select class="gs-u-select" ng-model="user.usersView.group"
+								ng-options="group as group.Name for group in user.usersView.groups" ng-change="changeCreateUUserGroup(user.usersView.group)" ng-disabled="user.createUser.UserID==1">
+			    		</select>
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+				<div class="container ug-container-margin-20">
+					<a ng-click="onUserSelectPermissions()"
+						class="button button-icon button-green"><i
+						class="fa fa-angle-right"></i>{{ 'USERS.PERMISSION_SCHEME' | translate }}</a>
+					<div class="clear"></div>
+				</div>
+				
+				<div class="container ug-container-margin-20">
+					<div class="one-half-responsive">
+						<h6>{{ 'USERS.FIRST_NAME' | translate }}</h6>
+					</div>
+					<div class="one-half-responsive last-column">
+						<input class="text-field green-field" type="text" ng-model="user.createUser.FullName">
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="container ug-container-margin-20">
+					<div class="one-half-responsive">
+						<h6>{{ 'USERS.EMAIL' | translate }}</h6>
+					</div>
+					<div class="one-half-responsive last-column">
+						<input class="text-field green-field" type="text" ng-model="user.createUser.Email">
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="container ug-container-margin-20">
+					<div class="one-half-responsive">
+						<h6>{{ 'USERS.USER_STATUS' | translate }}</h6>
+					</div>
+					<div class="one-half-responsive last-column">
+						<input id="gs-usr-check-label-id" class="checkbox" ng-class="{'gs-ug-input-checkbox-rtl' : language=='ar-AE'}" type="checkbox" ng-model="user.createUser.Active" ng-disabled="user.createUser.UserID==1">
+						<label class="checkbox-label" for="gs-usr-check-label-id">{{ 'USERS.ENABLED' | translate }}</label>
+					</div>
+					<div class="clear"></div>
+				</div>
+
+			</div>
+			<div class="one-half-responsive last-column">
+				<div class="container ug-container-margin-20">
+					<div class="one-half-responsive">
+						<h6>{{ 'USERS.OFFICE_PHONE' | translate }}</h6>
+					</div>
+					<div class="one-half-responsive last-column">
+						<input class="text-field green-field" type="text" ng-model="user.createUser.OfficePhone">
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="container ug-container-margin-20">
+					<div class="one-half-responsive">
+						<h6>{{ 'USERS.PHONE_NUMBER' | translate }}</h6>
+					</div>
+					<div class="one-half-responsive last-column">
+						<input class="text-field green-field" type="text" ng-model="user.createUser.Phone">
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="container ug-container-margin-20">
+					<div class="one-half-responsive">
+						<h6>{{ 'USERS.FAX' | translate }}</h6>
+					</div>
+					<div class="one-half-responsive last-column">
+						<input class="text-field green-field" type="text" ng-model="user.createUser.Fax">
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="container ug-container-margin-20">
+					<div class="one-half-responsive">
+						<h6>{{ 'USERS.ADDRESS' | translate }}</h6>
+					</div>
+					<div class="one-half-responsive last-column">
+						<input class="text-field green-field" type="text" ng-model="user.createUser.Address">
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="container ug-container-margin-20">
+					<div class="one-half-responsive">
+						<h6>{{ 'USERS.COUNTRY' | translate }}</h6>
+					</div>
+					<div class="one-half-responsive last-column">
+						<input class="text-field green-field" type="text" ng-model="user.createUser.Country">
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="container ug-container-margin-20">
+					<div class="one-half-responsive">
+						<h6>{{ 'USERS.EMIRATE' | translate }}</h6>
+					</div>
+					<div class="one-half-responsive last-column">
+						<input class="text-field green-field" type="text" ng-model="user.createUser.Emirate">
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="container ug-container-margin-20">
+					<div class="one-half-responsive">
+						<h6>{{ 'USERS.POBOX' | translate }}</h6>
+					</div>
+					<div class="one-half-responsive last-column">
+						<input class="text-field green-field" type="text" ng-model="user.createUser.POBox">
+					</div>
+					<div class="clear"></div>
+				</div>
+
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+	<div ng-switch-when="GSUSERSPERMISSIONVIEW" ng-controller="usersPermissionCtrl">
+		
+		<div class="container ug-container-margin-20">
+			
+			<div class="gs-ps-crps-table" ng-class="{'gs-ps-crps-table-ar':language=='ar-AE'}" ng-repeat="modul in user.permissionUser.modulePermissions">
+				<div class="container">
+					<table cellspacing="0" class="table">
+						<tbody>
+							<tr>
+								<th style="text-align:left;"><input class="checkbox" type="checkbox" ng-disabled="true">
+									<span>{{language=='ar-AE' ? modul.ModuleName_Ar : modul.ModuleName}}</span>
+								</th>
+							</tr>
+							<tr ng-repeat="Permision in modul.permissions">
+								<td class="table-sub-title"><input class="checkbox" type="checkbox" ng-model = "Permision.isClicked" ng-disabled="Permision.isDisabled"> 
+									<span>{{language=='ar-AE' ? Permision.Name_Ar : Permision.Name}}</span>
+								</td>
+							</tr>
+	
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>

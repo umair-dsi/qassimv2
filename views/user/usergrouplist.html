@@ -1,0 +1,81 @@
+<style>
+    input.text-field.green-field.thumbnail-header-search-ar{
+        padding-right: 45px;
+        padding-left: 10px !important;
+    }
+    .icon-field i:first-child {
+        top: 16px;
+    }
+</style>
+
+<div id="header-fixed">
+	<a class="open-left-sidebar" ui-sref="dashboard">
+		<i class="fa fa-2x fa-home"></i>
+	</a>
+	<h4 class="heading-title" style="text-align: center;margin-right: 30px;"><img src="images/mbrsc/logo-arc-mobile.png"></h4>
+ 	<a class="open-right-sidebar" href="javascript:void(0);" ng-click="onClickToolbar();" style="top:5px;">
+		<i class="fa fa-2x fa-ellipsis-v"></i>
+	</a> 
+	
+	<a class="open-right-sidebar" ui-sref="groupdetail" style="top:5px;right: 40px;">
+		<span class="fa-stack" style="display: inline;">
+		  <i class="fa fa-users fa-stack-2x"></i>
+		  <i class="fa fa-plus fa-stack-1x" style="color:white !important;top:7px;padding-left:22px;"></i>
+		  </span>
+	</a>
+</div>
+<div style="padding-left:20px;padding-right: 20px;padding-top: 60px;">
+	<div style="padding:10px;border-bottom: solid 1px rgba(0,0,0,0.1);">
+        <a href="#" class="toggle-title">{{ 'HELP.USERGROUPS_TITLE' | translate }}
+        	<i ng-if="language=='ar-AE'" style="line-height: 27px; float:left;" class="fa fa-2x fa-question-circle toogle-i-dir-ar"></i>
+        	<i ng-if="language!='ar-AE'" style="line-height: 27px; float:right;" class="fa fa-2x fa-question-circle"></i>
+        </a>
+        <div class="toggle-content" style="display: none;">
+            <p>
+                {{ 'HELP.USERGROUPS' | translate }}
+            </p>
+        </div>
+    </div>
+	<div class="thumbnail-header">
+		<div class="icon-field">
+			<i class="fa fa-search" ng-style="(language=='en-US') && {} || {'right':'0px'}"></i>
+			<input class="text-field green-field" type="text" ng-model="searchUsrGrp" placeholder="{{ 'searchgroup' | translate }}" ng-class="{'thumbnail-header-search-ar' : language=='ar-AE'}">
+		</div>
+	</div>
+	<div class="blog-sidebar-categories" ng-repeat="group in userGroupList | filter:searchUsrGrp" style="border-bottom: solid 1px rgba(0,0,0,0.1);">
+		<a ui-sref="groupdetail({groupObj: group})">
+			<span class="fa fa-users"></span>  {{group.Name}}
+			<i ng-class="language == 'en-US' ? 'fa fa-angle-right' : 'fa fa-angle-left toogle-i-dir-ar'"></i>
+		</a>
+	</div>
+	
+	<div class="static-notification bg-red-dark tap-dismiss" style="padding: 5px;" ng-cloak="" ng-show="(userGroupList | filter:searchUsrGrp).length == 0  && (searchUsrGrp !='' && searchUsrGrp !=null)">
+		<p>{{ 'NoResults' | translate }}</p>
+	</div>
+</div>
+<div id="userGroupToolBarDiv" class="share-bottom toolbarBackground" style="padding-top: 10px; padding-bottom: 0px;">
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" style="height: 45px;">
+		<i class="fa fa-user"></i>
+		<em style="line-height: 40px;">{{'loginas'|translate}} [{{loginUserName}}]</em>
+	</a>	
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="changeLocaleTo('en-US')" ng-if="language =='ar-AE'">
+		<i class="fa fa-language"></i>
+		<em style="line-height: 40px;">English</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="changeLocaleTo('ar-AE')" ng-if="language =='en-US'">
+		<i class="fa fa-language"></i>
+		<em style="line-height: 40px;">العربية</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" ng-click="logout()" style="height: 45px;">
+		<i class="fa fa-sign-out"></i>
+		<em style="line-height: 40px;" translate="logout"></em>
+	</a>
+</div>
+
+<script type="text/javascript">
+	$('.toggle-title').click(function(){
+	    $(this).parent().find('.toggle-content').slideToggle(200); 
+	    $(this).find('i').toggleClass('rotate-toggle');
+	    return false;
+	});
+</script>

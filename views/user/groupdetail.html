@@ -1,0 +1,39 @@
+<div id="header-fixed">
+	<a class="open-left-sidebar" ui-sref="usergrouplist" style="top:5px;">
+		<i class="fa fa-2x fa-chevron-left"></i>
+	</a>
+	<h4 class="heading-title" style="text-align: center;margin-top: 20px; ">
+		<em>Group</em>
+	</h4>
+</div>
+<div style="padding-left:20px;padding-right: 20px;padding-top: 60px;">
+	<form action="php/contact.php" method="post" class="contactForm" id="contactForm">
+		<fieldset>
+			<div class="formFieldWrap">
+				<label class="field-title contactNameField" for="contactNameField">
+					<strong translate="USER_GROUP.GROUP_NAME">Group Name:</strong>
+				</label>
+				<input type="text" name="contactNameField" ng-disabled="group.GroupID==1"  ng-style="(group.GroupID == 1) && {'background': '#d3d3d3'} || {}" value="{{group.Name}}" class="contactField requiredField" id="contactNameField">
+			</div>
+			<div class="formTextareaWrap">
+				<label class="field-title contactMessageTextarea" for="contactMessageTextarea">
+					<strong translate="USER_GROUP.DESCRIPTION"></strong>
+				</label>
+				<textarea name="contactMessageTextarea" ng-disabled="group.GroupID==1" class="contactTextarea requiredField" id="contactMessageTextarea" style="background: #d3d3d3;">{{group.Description}}</textarea>
+			</div>
+			<div class="formFieldWrap">
+				<input id="check-label-1" class="checkbox" type="checkbox" ng-model="group.Active" ng-change="isEnabledValueChanged(group.Active)" ng-disabled="group.GroupID==1">
+				<label class="checkbox-label" for="check-label-1" translate="USER_GROUP.ENABLED"></label>
+			</div>
+			<div class="formFieldWrap">
+				<input id="check-label-1" class="checkbox" type="checkbox" ng-model="group.IsAdministrator" ng-change="isAdministrationModeValueChanged(group.IsAdministrator)" ng-disabled="group.GroupID==1">
+				<label class="checkbox-label" for="check-label-1" translate="USER_GROUP.ADMINISTRATION_MODE"></label>
+			</div>
+		</fieldset>
+	</form>
+	<div class="container heading-style-5">
+		<h4 class="heading-title" translate="USER_GROUP.PERMISSION_SCHEME"></h4>
+		<i class="fa fa-key heading-icon"></i>
+		<div class="line bg-black"></div>
+	</div>
+</div>

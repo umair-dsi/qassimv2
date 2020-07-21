@@ -1,0 +1,72 @@
+<style>
+<!--
+.bookmark-list {
+	width: 100%;
+}
+
+.bookmark-list-0 {
+	margin-right: 3%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 3%;
+}
+
+.bookmark-list-0 input{
+	margin-left: 0px;
+	margin-right: 0px;
+	width: 35px;
+}
+
+.bookmark-list-0 div{
+	display: inline-block;
+    width: 62%;
+    height: 30px;
+    white-space: nowrap; 
+    overflow:hidden; 
+    text-overflow: ellipsis;
+}
+
+.bookmark-list-0 i {
+	float: right;
+	height: 100%;
+    line-height: 3;
+    width: 30px;
+}
+.bookmark-button-round {
+    border-radius: 45px;
+    display: inherit;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin: 5px;
+    text-align: center;
+    background-color: #04B6F1;
+    color: #FFFFFF;
+}
+.bookmark-button-round i {
+    color: white !important;
+    font-size:1.5em;
+}
+-->
+</style>
+
+<div>
+	<div>
+		<a ng-click="bookmarkBackBtnClked()" class="bookmark-button-round" ng-show="currentBookMarkList[0].isShared == null"><i class="fa fa-angle-left"></i></a>
+	</div>
+	
+	<div class="decoration"></div>
+	
+	 <div class="bookmark-list" ng-repeat="bookmark in currentBookMarkList">	
+			<div class="bookmark-list-0">
+				<input class="checkbox" type="checkbox">
+				<div>
+					{{bookmark.Name}}
+				</div>
+				<i class="fa fa-chevron-circle-right" ng-hide="bookmark.BookMarkID != null" ng-click="selectBookMark(bookmark)"></i>
+				<i class="fa fa-pencil-square-o" ng-click="selectEditBookMark(bookmark)"></i>
+		    </div>
+		    <div class="decoration"></div>
+	 </div>
+</div>
+

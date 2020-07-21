@@ -1,0 +1,231 @@
+<style>
+	.bookmark-button-round {
+	    border-radius: 45px;
+	    width: 30px;
+	    height: 30px;
+	    line-height: 30px;
+	    margin: 5px;
+	    text-align: center;
+	    background-color: #04B6F1;
+	    color: #FFFFFF;
+	}
+	
+	.gs-bookmark-list-title-div {
+		color: black;
+	    font-weight: bold;
+	    margin-left: 53px;
+	    margin-right: 15px;
+	}
+	
+	.bookmark-list {
+		width: 100%;
+	}
+	
+	.bookmark-list-0 {
+		margin-right: 3%;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-left: 3%;
+	}
+	
+	.bookmark-list-0 input{
+		margin-left: 0px;
+		margin-right: 0px;
+		width: 35px;
+	
+	}
+	
+	.bookmark-list-0 div{
+		display: inline-block;
+	    width: 62%;
+	    height: 30px;
+	    white-space: nowrap; 
+	    overflow:hidden; 
+	    text-overflow: ellipsis;
+	}
+	
+	.bookmark-list-0 i {
+		float: right;
+		height: 100%;
+	    line-height: 3;
+	    width: 30px;
+	}
+	
+	.map-bookmark-rightSidebar-title {
+		border-bottom: 1px solid #000000;
+		margin: 5px;
+	}
+	/* .bookmark-list div {
+		margin: 10px 0px 10px 10px;
+		
+	}
+	
+	.bookmark-list a {
+		margin-right: 10%;
+	} */
+	
+	/* Bookmark folder */
+	.checkbox.gs-bookmark-rightsidebar-bookmarkFolder-input {
+		margin-left: 0px;
+		width: 15px;
+	}
+	
+	.gs-map-actionbar {
+		position: fixed;
+	    display: block;
+	    width: 100%;
+	    height: 100%;
+	    z-index: 99999;
+	    background-color: rgba(220,220,220,0.8);
+		/* left: 50%; 
+		transform: translateX(-50%); */
+	}
+	
+	.gs-map-actionbar-0 {
+		position: fixed;
+	    bottom: 0px;
+	    width: 100%;
+	}
+	
+	.gs-map-actionbar-options-0 {
+		margin-top: 5px;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+	}
+	
+	.gs-map-actionbar-options-1 {
+		
+	}
+	
+	.gs-map-actionbar-options-2 {
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+	}
+	
+	.gs-map-actionbar-cancel {
+		margin: 20px 0px 5px 0px;
+		font-weight: bold;
+		border-radius: 10px;
+	}
+	
+	.gs-map-actionbar-options-0,.gs-map-actionbar-options-1,.gs-map-actionbar-options-2,.gs-map-actionbar-cancel {
+		text-align: center;
+		width: 98%;
+		height: 50px;
+		color: green;
+		font-size: medium;
+		background-color: white;
+		line-height: 50px;
+		left: 50%; 
+		transform: translateX(-50%);
+		-webkit-transform: translateX(-50%);
+	}
+
+</style>
+
+<div ng-switch on="mapBookmarkRightSideBarDisplayView">
+
+	<div ng-switch-when="BOOKMARK">
+		<div class = "bookmark-rightsidebar-bookmark">
+			<h2 class="map-bookmark-rightSidebar-title" style="text-align: center;">Bookmark</h2>
+			<div style="margin:10px;">
+				<form name="rightSideBookmarkForm" novalidate>
+					<fieldset>
+						<div class="formFieldWrap">
+							<label class="field-title contactNameField" for="labelContactNameFieldID">
+								{{ 'BOOKMARK.LABEL' | translate }}
+							</label>
+							<input id="labelContactNameFieldID" class="text-field green-field" type="text" name="label" ng-model="addBookmark.Name" ng-minlength="3" ng-maxlength="100" required>
+							<div class="error-container" ng-show="rightSideBookmarkForm.label.$dirty && rightSideBookmarkForm.label.$invalid">
+								<small class="text-red" ng-show="rightSideBookmarkForm.label.$error.required">
+									<span translate="BOOKMARK.LABEL_VALIDATION_REQUIRED"></span>
+								</small>
+								<small class="text-red" ng-show="rightSideBookmarkForm.label.$error.minlength">
+									<span translate="BOOKMARK.LABEL_VALIDATION_MIN_CHARACTERS_3"></span>
+								</small>
+								<small class="text-red" ng-show="rightSideBookmarkForm.label.$error.maxlength">
+									<span translate="BOOKMARK.LABEL_VALIDATION_MAX_CHARACTERS_100"></span>
+								</small>
+							</div>
+						</div>
+						
+						<div class="formTextareaWrap">
+							<label class="field-title contactMessageTextarea" for="bookmarkDescriptionrightsideTextareaID" translate="BOOKMARK.DESCRIPTION">
+							</label>
+							<textarea id="bookmarkDescriptionrightsideTextareaID" name="descriptionTextarea" class="contactTextarea" ng-model="addBookmark.Description"></textarea>
+						</div>
+						
+						<div class="formFieldWrap">
+							<input id="bookmarkIsPublicID" class="checkbox" ng-class="{'gs-ug-input-checkbox-rtl':language=='ar-AE'}" type="checkbox" ng-model="addBookmark.isPublicState" ng-change="selectEnabled(addBookmark.isPublicState)">
+							<label class="checkbox-label" for="bookmarkIsPublicID">{{ 'BOOKMARK.ISPUBLIC' | translate }}</label>
+							<div class="clear"></div>
+						</div>
+						
+						<div class="container ug-container-margin-20">
+						    <div class="one-half">
+								<a href="#" class="button user-btn-icon-white" ng-class="rightSideBookmarkForm.$invalid ? 'button-gray' :'button-green'" ng-click="saveAddBookmark()" ng-disabled="rightSideBookmarkForm.$invalid" style="width: initial;">{{ 'BOOKMARK.SAVE' | translate }} </a>
+						    </div>
+						    <div class="one-half last-column">
+								<a href="#" class="button button-red user-btn-icon-white" ng-click="cancel()" style="width: initial;">{{ 'BOOKMARK.CANCEL' | translate }}</a>
+						    </div>
+						    <div class="clear"></div>
+						</div>
+						
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div ng-switch-when="BOOKMARK_FOLDER">
+		<div class = "bookmark-rightsidebar-bookmarkFolder">
+			<h2 class="map-bookmark-rightSidebar-title" style="text-align: center;">Bookmark Folder</h2>
+			<div style="margin:10px;">
+				<form name="rightSideBookmarkForm" novalidate>
+					<fieldset>
+						<div class="formFieldWrap">
+							<label class="field-title contactNameField" for="labelContactNameFieldID">
+								{{ 'BOOKMARK.FOLDER_NAME' | translate }}
+							</label>
+							<input id="labelContactNameFieldID" class="text-field green-field" type="text" name="label" ng-model="addBookmark.Name" ng-minlength="3" ng-maxlength="100" required>
+							<div class="error-container" ng-show="rightSideBookmarkForm.label.$dirty && rightSideBookmarkForm.label.$invalid">
+								<small class="text-red" ng-show="rightSideBookmarkForm.label.$error.required">
+									<span translate="BOOKMARK.LABEL_VALIDATION_REQUIRED"></span>
+								</small>
+								<small class="text-red" ng-show="rightSideBookmarkForm.label.$error.minlength">
+									<span translate="BOOKMARK.LABEL_VALIDATION_MIN_CHARACTERS_3"></span>
+								</small>
+								<small class="text-red" ng-show="rightSideBookmarkForm.label.$error.maxlength">
+									<span translate="BOOKMARK.LABEL_VALIDATION_MAX_CHARACTERS_100"></span>
+								</small>
+							</div>
+						</div>
+						
+						<div class="formFieldWrap">
+							<input id="bookmarkFolderIsPublicID" class="checkbox" ng-class="{'gs-ug-input-checkbox-rtl':language=='ar-AE'}" type="checkbox" ng-model="addBookmark.isPublicState" ng-change="selectEnabled(addBookmark.isPublicState)">
+							<label class="checkbox-label" for="bookmarkFolderIsPublicID">{{ 'BOOKMARK.ISPUBLIC' | translate }}</label>
+							<div class="clear"></div>
+						</div>
+						
+						<div class="container ug-container-margin-20">
+						    <div class="one-half">
+								<a href="#" class="button" ng-class="rightSideBookmarkForm.$invalid ? 'button-gray' :'button-green'" ng-click="saveAddBookmarkFolder()" ng-disabled="rightSideBookmarkForm.$invalid" style="width: initial;">{{ 'BOOKMARK.SAVE' | translate }}</a>
+						    </div>
+						    <div class="one-half last-column">
+								<a href="#" class="button button-red" ng-click="cancel()" style="width: initial;">{{ 'BOOKMARK.CANCEL' | translate }}</a>
+						    </div>
+						    <div class="clear"></div>
+						</div>
+						
+						
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div ng-switch-when="NONE">
+		<div></div>
+	</div>
+	
+</div>

@@ -1,0 +1,134 @@
+<div id="header-fixed">
+	<a class="open-left-sidebar" ui-sref="usergrouplist">
+		<i class="fa fa-2x fa-chevron-left"></i>
+	</a>
+	<h4 class="heading-title" style="text-align: center;">
+		<img src="images/mbrsc/logo-arc-mobile.png">
+	</h4>
+	<a class="open-right-sidebar" href="javascript:void(0);" ng-click="onClickToolbar();" style="top:5px;">
+		<i class="fa fa-2x fa-ellipsis-v"></i>
+	</a>
+</div>
+
+<div style="padding-left:20px;padding-right: 20px;padding-top: 80px;">
+	<h5 class="heading-title">{{ 'GEOSERV.USER_GROUPS' | translate }}</h5>
+	<div class="decoration"></div>
+	<form name="userGroupForm" novalidate>
+		<fieldset>
+			<div class="formFieldWrap">
+				<label class="field-title contactNameField" for="contactNameField">
+					{{ 'USER_GROUP.GROUP_NAME' | translate }}
+					<span style="color: red">(*)</span>
+				</label>
+				<input class="text-field green-field" type="text" name="groupName" ng-model="group.Name" ng-minlength="4" ng-maxlength="100" required>
+				<div class="error-container" ng-show="userGroupForm.groupName.$dirty && userGroupForm.groupName.$invalid">
+					<small class="text-red" ng-show="userGroupForm.groupName.$error.required">
+						<span translate="PERMISSION_SCHEME.ENGLISH_NAME_FIELD_VALID_REQUIRED"></span>
+					</small>
+					<small class="text-red" ng-show="userGroupForm.groupName.$error.minlength">
+						<span translate="PERMISSION_SCHEME.ENGLISH_NAME_FIELD_VALID_MIN_CHARACTERS"></span>
+					</small>
+					<small class="text-red" ng-show="userGroupForm.groupName.$error.maxlength">
+						<span translate="PERMISSION_SCHEME.ENGLISH_NAME_FIELD_VALID_MAX_CHARACTERS"></span>
+					</small>
+				</div>
+			</div>
+			<div class="formTextareaWrap">
+				<label class="field-title contactMessageTextarea" for="descriptionTextareaID" translate="USER_GROUP.DESCRIPTION">
+				</label>
+				<textarea id="descriptionTextareaID" name="descriptionTextarea" class="contactTextarea" ng-model="group.Description"></textarea>
+			</div>
+			<div class="formFieldWrap">
+				<input id="enabledID" class="checkbox" ng-class="{'gs-ug-input-checkbox-rtl':language=='ar-AE'}" type="checkbox" ng-model="group.activeState" ng-change="selectEnabled(group.activeState)">
+				<label class="checkbox-label" for="enabledID">{{ 'USER_GROUP.ENABLED' | translate }}</label>
+				<div class="clear"></div>
+			</div>
+			<div class="formFieldWrap">
+				<input id="administrationModeID" class="checkbox" ng-class="{'gs-ug-input-checkbox-rtl':language=='ar-AE'}" type="checkbox" ng-model="group.IsAdministrator" ng-change="selectAdministrationMode(group.IsAdministrator)">
+				<label class="checkbox-label" for="administrationModeID">{{ 'USER_GROUP.ADMINISTRATION_MODE' | translate }}</label>
+				<div class="clear"></div>
+			</div>
+			
+			<div class="container heading-style-5" style="margin-top: 20px;">
+				<h4 class="heading-title" translate="USER_GROUP.PERMISSION_SCHEME"></h4>
+				<i class="fa fa-key heading-icon"></i>
+				<div class="line bg-black"></div>
+			</div>
+			
+			<div class="formFieldWrap">
+				<label class="field-title contactNameField" for="contactNameField">
+					{{ 'USER_GROUP.SELECT_PERMISSION_SCHEME' | translate }}
+				</label>
+				<select style="width:100%; height:30px; font-size:medium; border-style: solid; border-width: 1px; margin-bottom: 10px;"
+							ng-model="selectedPermissionScheme"
+							ng-options="ugPermission as (language=='ar-AE' ? ugPermission.NAME_AR : ugPermission.NAME) for ugPermission in allPermissionSchemes" ng-change="selectChangedUGPermissionScheme(selectedPermissionScheme)" ng-disabled="group.IsAdministrator">
+		    	</select>
+			</div>
+			
+			<div class="decoration" style="margin-bottom: 10px;"></div>
+			
+			<div class="container">
+				<div class="gs-ps-crps-table" ng-class="{'gs-ps-crps-table-ar':language=='ar-AE'}" ng-repeat="modul in modulePermissions">
+					<div class="container">
+						<table cellspacing="0" class="table">
+							<tbody>
+								<tr>
+									<th style="text-align:left;"><input class="checkbox" type="checkbox" ng-model="selectModulePermissionSchemes" ng-change="selectAllmodulePermissionSchemes(selectModulePermissionSchemes, modul.ModuleID)" ng-disabled="true">
+										<span>{{language=='ar-AE' ? modul.ModuleName_Ar : modul.ModuleName}}</span>
+									</th>
+								</tr>
+								<tr ng-repeat="Permision in modul.permissions">
+									<td class="table-sub-title"><input class="checkbox" type="checkbox" ng-model = "Permision.isClicked" ng-disabled="true"> 
+										<span>{{language=='ar-AE' ? Permision.Name_Ar : Permision.Name}}</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<!-- <div class="container ug-container-margin-20">
+				<button type="submit" ng-disabled="userGroupForm.$invalid" ng-class="userGroupForm.$invalid ? 'button-gray' :'button-green'" class="login-button button button-small  button-fullscreen full-bottom"
+					translate="PERMISSION_SCHEME.SUBMIT" ng-click="selectSaveUserGroup()" style="height: 40px;border-radius:5px;margin: 0 auto;"></button>
+			</div>
+			<div class="clear"></div> -->
+			<div class="container ug-container-margin-20">
+			    <div class="one-half">
+			        <!-- <button ng-disabled="userForm.$invalid" ng-class="userForm.$invalid ? 'button-gray' :'button-green'" class="button button-small  button-fullscreen full-bottom"
+					translate="BOOKMARK.SAVE" ng-click="selectSaveUser()"></button> -->
+					<a href="#" class="button button-icon user-btn-icon-white" ng-class="userGroupForm.$invalid ? 'button-gray' :'button-green'" ng-click="selectSaveUserGroup()" a-disabled="userGroupForm.$invalid"><i class="fa fa-floppy-o"></i>{{ 'BOOKMARK.SAVE' | translate }}</a>
+			    </div>
+			    <div class="one-half last-column">
+<!-- 			       <button ng-click="deleteUser();" ng-show="addUser.UserID != null" class="button button-small button-fullscreen full-bottom"
+					translate="BOOKMARK.SAVE"></button> -->
+					<a href="#" class="button button-icon button-red user-btn-icon-white" ng-click="selectDeleteUserGroup()" ng-show="group.GroupID != null"><i class="fa fa-trash-o"></i>{{ 'GEOSERV.DELETE' | translate }}</a>
+			    </div>
+			    <div class="clear"></div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+
+<div id="userGroupDetailToolBarDiv" class="share-bottom toolbarBackground" style="padding-top: 10px; padding-bottom: 0px;">	
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" style="height: 45px;">
+		<i class="fa fa-user"></i>
+		<em style="line-height: 40px;">{{'loginas'|translate}} [{{loginUserName}}]</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ui-sref="dashboard">
+		<i class="fa fa-home"></i>
+		<em style="line-height: 40px;" translate="home"></em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="changeLocaleTo('en-US')" ng-if="language =='ar-AE'">
+		<i class="fa fa-language"></i>
+		<em style="line-height: 40px;">English</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="changeLocaleTo('ar-AE')" ng-if="language =='en-US'">
+		<i class="fa fa-language"></i>
+		<em style="line-height: 40px;">العربية</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" ng-click="logout()" style="height: 45px;">
+		<i class="fa fa-sign-out"></i>
+		<em style="line-height: 40px;" translate="logout"></em>
+	</a>
+</div>

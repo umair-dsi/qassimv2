@@ -1,0 +1,80 @@
+<style>
+
+		.userAdmin {
+			padding-top: 70px;
+		}
+		.userAdmin a {
+			width: 46%;
+			display: inline-block;
+			margin: 1.675%;
+			background-color: #252424;
+			opacity: 0.8;
+			text-align: center;
+			text-decoration: none;
+			overflow: hidden;
+		}
+		.userAdmin a i{
+			display: block;
+			margin: 30% auto 0px auto;
+		}
+		.userAdmin a p {
+			margin: 20% 20% 10% 20%;
+			color: white;
+			font: normal 1em Georgia;
+			height: 40px;
+			text-overflow: ellipsis;
+			/*white-space: nowrap;*/
+			overflow: hidden;
+		}
+
+</style>
+
+<div id="header-fixed">
+	<a class="open-left-sidebar" ui-sref="maplist" style="top:5px;">
+		<i class="fa fa-2x fa-chevron-left"></i>
+	</a>
+	<h4 class="heading-title" style="text-align: center;margin-top: 20px; ">
+		<em translate="GEOSERV.USER_ADMINISTRATION">User Management</em>
+	</h4>
+	<a class="open-right-sidebar" href="javascript:void(0);" ng-click="onClickToolbar();" style="top:5px;">
+		<i class="fa fa-2x fa-ellipsis-v"></i>
+	</a>
+</div>
+<div class="userAdmin" dir="ltr">
+	<a ui-sref="userlist">
+		<i class="fa fa-user fa-3x"></i>
+		<p translate="USERS.USER"></p>
+	</a>
+	<a ui-sref="usergrouplist">
+		<i class="fa fa-users fa-3x" ></i>
+		<p translate="GEOSERV.USER_GROUPS"></p>
+	</a>
+	<a ui-sref="permissionlist" >
+		<i class="fa fa-key fa-3x"></i>
+		<p translate="GEOSERV.PERMISSION_SCHEMES"></p>
+	</a>
+	<a ui-sref="maplist">
+		<i class="fa fa-globe fa-3x"></i>
+		<p translate="GEOSERV.MAP"></p>
+	</a>
+<!-- 	<a ui-sref="systemSetting">
+		<i class="bg-gray-dark bg-hover-green-dark fa fa-cog"></i>
+		<em translate="GEOSERV.SETTING"></em>
+	</a> -->
+</div>
+
+<div id="usrMngToolbarDiv" class="share-bottom" style="padding-top: 10px; padding-bottom: 0px;">
+	
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="changeLocaleTo('en-US')" ng-if="language =='ar-AE'">
+		<i class="fa fa-language"></i>
+		<em style="line-height: 40px;">English</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="changeLocaleTo('ar-AE')" ng-if="language =='en-US'">
+		<i class="fa fa-language"></i>
+		<em style="line-height: 40px;">العربية</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" ng-click="logout()" style="height: 45px;">
+		<i class="fa fa-sign-out"></i>
+		<em style="line-height: 40px;" translate="logout"></em>
+	</a>
+</div>

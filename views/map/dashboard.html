@@ -1,0 +1,147 @@
+<style>
+.userAdmin {
+	padding-top: 70px;
+}
+
+.userAdmin a {
+	width: 46%;
+	margin: 1.675%;
+	background-color: #252424;
+	opacity: 0.8;
+	text-align: center;
+	text-decoration: none;
+	overflow: hidden;
+	display: table;
+	float: left;
+}
+
+.userAdmin a i {
+	display: block;
+	margin: 30% auto 0px auto;
+	color: #00aeef;
+}
+
+.userAdmin a p {
+	margin: 20% 20% 10% 20%;
+	color: white;
+	font: normal 1em Georgia;
+	height: 40px;
+	text-overflow: ellipsis;
+	/*white-space: nowrap;*/
+	overflow: hidden;
+}
+
+.gallery a {
+	width: 100%;
+}
+
+.container a {
+	text-align: center;
+}
+
+.container span {
+	line-height: 20px;
+	color:white;
+}
+
+a i {
+	color:white !important;
+}
+</style>
+<div id="header-fixed" ng-hide="userInfo.username == 'guest'">
+	<h4 class="heading-title" style="text-align: center;">
+		<img src="images/mbrsc/logo-arc-mobile.png">
+	</h4>
+	<a class="open-right-sidebar" href="javascript:void(0);" ng-click="onClickToolbar();" style="top:5px;">
+		<i class="fa fa-2x fa-ellipsis-v"></i>
+	</a>
+</div>
+
+<div style="top:60px;margin-top: 0px;padding-top:30px;" ng-hide="userInfo.username == 'guest'">
+	
+	<div class="container">
+		<div class="one-half" style="margin-top: 30px;">
+			<img src="images/mbrsc/Government_of_Dubai_logo_white.png" style="width: 140px;height: 54px; margin: 0 auto;">
+		</div>
+		<div class="one-half last-column" style="margin-top: 9px">
+			<img src="images/mbrsc/mbrsc_logo_white.png" style="width: 140px;height: 89px; margin: 0 auto;">
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="container no-bottom">
+		<div class="container">
+			<a href="#">
+				<i class="fa fa-globe fa-5x" style="margin-top: 5px;font-size: 90px;" ui-sref="maplist"></i>
+				<br>
+				<span translate="GEOSERV.MAP"></span>
+			</a>
+		</div>
+		<div class="clear"></div>
+		<div class="container" ng-show="userInfo.GroupID == 1">
+			<div class="one-third">
+				<a href="#" ui-sref="userlist">
+					<i class="fa fa-user fa-2x" style="padding: 5px;margin-top: 5px;"></i>
+					<br>
+					<span translate="USERS.USER"></span>
+				</a>
+			</div>
+			<div class="one-third">
+				<a href="#" ui-sref="usergrouplist">
+					<i class="fa fa-users fa-2x" style="padding: 5px;margin-top: 5px;"></i>
+					<br>
+					<span translate="GEOSERV.USER_GROUPS"></span>
+				</a>
+			</div>
+			<div class="one-third last-column">
+				<a href="#" ui-sref="permissionlist">
+					<i class="fa fa-key fa-2x" style="padding: 5px;margin-top: 5px;"></i>
+					<br>
+					<span translate="GEOSERV.PERMISSION_SCHEMES" style="display: inline-block;width: 5em;"></span>
+				</a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+	<!-- 
+		<ul class="gallery square-thumb blog-gallery" style=" margin:0 auto; text-align:center;">
+			<li><a href="#" ui-sref="userlist">
+					<i class="fa fa-user fa-5x" style="padding: 5px;margin-top: 5px;"></i>
+					<br>
+					<span translate="USERS.USER"></span>
+				</a></li>
+			<li><a href="#" ui-sref="usergrouplist">
+					<i class="fa fa-users fa-5x" style="padding: 5px;margin-top: 5px;"></i>
+					<br>
+					<span translate="GEOSERV.USER_GROUPS"></span>
+				</a></li>
+			<li><a href="#" ui-sref="permissionlist">
+					<i class="fa fa-key fa-5x" style="padding: 5px;margin-top: 5px;"></i>
+					<br>
+					<span translate="GEOSERV.PERMISSION_SCHEMES" style="display: inline-block;width: 5em;"></span>
+				</a></li>
+			<li><a href="#" ui-sref="maplist">
+					<i class="fa fa-globe fa-5x" style="padding: 7px;margin-top: 5px;"></i>
+					<br>
+					<span translate="GEOSERV.MAP"></span>
+				</a></li>
+		</ul> -->
+</div>
+<div id="dashboardToolBarDiv" class="share-bottom toolbarBackground" style="padding-top: 10px; padding-bottom: 0px;">
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" style="height: 45px;">
+		<i class="fa fa-user"></i>
+		<em style="line-height: 40px;">{{'loginas'|translate}} [{{loginUserName}}]</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="changeLocaleTo('en-US')" ng-if="language =='ar-AE'">
+		<i class="fa fa-language"></i>
+		<em style="line-height: 40px;">English</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="changeLocaleTo('ar-AE')" ng-if="language =='en-US'">
+		<i class="fa fa-language"></i>
+		<em style="line-height: 40px;">العربية</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" ng-click="logout()" style="height: 45px;">
+		<i class="fa fa-sign-out"></i>
+		<em style="line-height: 40px;" translate="logout"></em>
+	</a>
+</div>

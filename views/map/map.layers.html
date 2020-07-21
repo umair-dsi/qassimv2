@@ -1,0 +1,346 @@
+<div ng-show="boolLeftDivState =='layers'" style="width: 100%;height: 100%;">
+    <h6 ng-if="language =='en-US'" style="padding-top: 10px;padding-left: 10px;">
+        <i class="fa fa-globe"></i>
+        <b translate="mapname"></b>:
+        <span ng-if="toc_map.mapNameAliasEnglishID != 0">{{toc_map.mapNameAliasEnglish}}</span>
+        <span ng-if="toc_map.mapNameAliasEnglishID == 0">{{toc_map.DefaultName}}</span>
+        <i ng-show="timelineCtrl.busy" class="fa fa-refresh fa-spin"></i>
+    </h6>
+    <h6 ng-if="language !='en-US'" style="padding-top: 10px;padding-right: 30px;">
+        <i class="fa fa-globe"></i>
+        <b translate="mapname"></b>:
+        <span ng-if="toc_map.mapNameAliasArabicID != 0">{{toc_map.mapNameAliasArabic}}</span>
+        <span ng-if="toc_map.mapNameAliasArabicID == 0">{{toc_map.DefaultName}}</span>
+        <i ng-show="timelineCtrl.busy" class="fa fa-refresh fa-spin"></i>
+    </h6>
+    <div class="portfolio-filter" style="width: 100%;height: calc(100% - 50px);height: -webkit-calc(100% - 50px);">
+        <div class="portfolio-filter-categories" style="background-color: #00aeef;">
+            <a href="javascript:void(0);" class="filter-category " ng-class="{ 'selected-filter-custom' : layerCategory == 'layer' }" ng-click="onClkChangeLayer('layer')"><i class="fa fa-map"></i></a>
+            <a ng-if="timelineCtrl.years.length>0" href="javascript:void(0);" class="filter-category" ng-class="{ 'selected-filter-custom' : layerCategory == 'timelinelayers' }" ng-click="onClkChangeLayer('timelinelayers')"><i class="fa fa-hourglass"></i></a>
+            <a href="javascript:void(0);" class="filter-category " ng-class="{ 'selected-filter-custom' : layerCategory == 'report' }" ng-click="onClkChangeLayer('report')"><i class="fa fa-file-text"></i></a>
+            <a href="javascript:void(0);" class="filter-category " ng-class="{ 'selected-filter-custom' : layerCategory == 'tasks' }" ng-click="onClkChangeLayer('tasks')" ng-show="listOfTasks.length > 0"><i class="fa fa-tasks"></i></a>
+            <a href="javascript:void(0);" class="filter-category " ng-class="{ 'selected-filter-custom' : layerCategory == 'bookmarks' }" ng-click="onClkChangeLayer('bookmarks')"><i class="glyphicon glyphicon-bookmark"></i></a>
+        </div>
+        <div class="clear"></div>
+        <div class="portfolio-filter-wrapper" style="margin:0px;height: calc(100% - 35px);height: -webkit-calc(100% - 35px);overflow-y: scroll;">
+            <div class="portfolio-filter-item" ng-show="layerCategory =='layer'" style="width:100%">
+                <div ng-if="(toc_layers|filter:{Type:'GOOGLE'}).length > 0 && ((toc_layers|filter:{GoogleLayerType:'HYBRID'}).length > 0 || (toc_layers|filter:{GoogleLayerType:'TERRAIN'}).length > 0 || (toc_layers|filter:{GoogleLayerType:'ROADMAP'}).length > 0 ) ">
+                    <h6 class="custom-font" translate="googleLayers" style="padding-left:10px;padding-right: 10px;margin-bottom: 0px;">Google Layers</h6>
+                    <div ng-repeat="googlelayer in toc_layers | orderBy:predicate">
+                        <div class="well" ng-if="googlelayer.GoogleLayerType=='HYBRID' || googlelayer.GoogleLayerType=='ROADMAP' || googlelayer.GoogleLayerType=='TERRAIN'" style="margin-left: 10px;margin-right: 10px;">
+                            <input id="chkTrafficLayer" value="" class="checkbox" type="checkbox" ng-model="isGoogleTafficLayerEnabled" ng-change="onToggleTrafficLayer(isGoogleTafficLayerEnabled)"
+                                   ng-style="(language=='en-US') && {'margin-left': '10px','margin-right': '2px'} || {'margin-left': '10px','float': 'right'}" style="width: 25px;">
+                            <span translate="trafficlayer"></span>
+                            </input>
+                        </div>
+                    </div>
+                    <div ng-if="toc_layers.length > 1">
+                        <h6 class="custom-font" translate="SystemLayer" style="padding-left:10px;padding-right: 10px;margin-bottom: 0px;"></h6>
+                    </div>
+                </div>
+                <div class="layerlist " ng-repeat="layer in toc_layers | filter:{ Type: '!GOOGLE' } | orderBy:predicate">
+                    <input ng-model="layer.visible" ng-class="language == 'en-US' ? 'input-layerlist-en' : 'input-layerlist-ar'" ng-click="toggleLayer(layer.LayerID,layer.LayerOrder,$event,layer)"
+                           class="checkbox priority-is-{{layer.parentLayerID}}" type="checkbox" />
+                    <img ng-if="layer.FeatureType == 'RASTER'" data-i18n-attr="RasterLayer|title" src='images/geoserv/raster16x16.png' />
+                    <img ng-if="layer.FeatureType == 'FEATURE_POLYGON'" data-i18n-attr="PolygonLayer|title" src='images/geoserv/polygon16x16.png' />
+                    <img ng-if="layer.FeatureType == 'FEATURE_POINT'" data-i18n-attr="PointLayer|title" src='images/geoserv/point16x16.png' />
+                    <img ng-if="layer.FeatureType == 'FEATURE_LINE'" data-i18n-attr="LineLayer|title" src='images/geoserv/line_xse.png' />
+                    <img ng-if="layer.FeatureType == 'UNKNOWN'" data-i18n-attr="UnknowLayer|title" src='images/geoserv/raster16x16.png' />
+                    <img ng-if="layer.FeatureType == 'GROUPLAYER'" data-i18n-attr="AddGroupLayer|title" src='images/geoserv/layergroup_se.png' />
+
+                    <span ng-if="layer.Type != 'WMSLAYER' &&  layer.Type !='SYSTEMLAYER'">
+                        <strong class="strong-layerlist-en" ng-if="language =='en-US'">
+                            <h6 ng-if="layer.layerNameAliasEnglish == null" style="padding-top: 3px;margin-left: 0px;display: inline;">{{layer.DefaultName}}</h6>
+                            <h6 ng-if="layer.layerNameAliasEnglish != null" style="display: inline;">{{layer.layerNameAliasEnglish}}</h6>
+                        </strong>
+                        <strong class="strong-layerlist-ar" ng-if="language !='en-US'">
+                            <h6 ng-if="layer.layerNameAliasArabic == null" style="padding-top: 3px;margin-left: 0px;display: inline;">{{layer.DefaultName}}</h6>
+                            <h6 ng-if="layer.layerNameAliasArabic != null" style="display: inline;">{{layer.layerNameAliasArabic}}</h6>
+                        </strong>
+                    </span>
+                    <span ng-if="layer.Type == 'WMSLAYER' || layer.Type =='SYSTEMLAYER'" style="padding-top: 3px;">
+                        <strong class="strong-layerlist-en" ng-if="language =='en-US'">
+                            <h6 style="padding-top: 3px;margin-left: 0px;display: inline;" ng-if="layer.layerNameAliasEnglish == null">{{layer.Title}}</h6>
+                            <h6 ng-if="layer.layerNameAliasEnglish != null" style="padding-top: 3px;margin-left: 0px;display: inline;">{{layer.layerNameAliasEnglish}}</h6>
+                        </strong>
+                        <strong class="strong-layerlist-ar" ng-if="language !='en-US'">
+                            <h6 style="padding-top: 3px;margin-left: 0px;display: inline;" ng-if="layer.layerNameAliasArabic != null">{{layer.Title}}</h6>
+                            <h6 ng-if="layer.layerNameAliasEnglish != null" style="padding-top: 3px;margin-left: 0px;display: inline;">{{layer.layerNameAliasArabic}}</h6>
+                        </strong>
+                    </span>
+
+                    <div style="text-align: center;">
+                        <a ng-click="islayerSlider =! islayerSlider" ng-style="(language=='en-US') && {'border-right': 'solid 1px rgba(0,0,0,0.1)'} || {'border-left': 'solid 1px rgba(0,0,0,0.1)'}"
+                           style="display: inline;">
+                            <i class="fa fa-2x fa-sliders" style="width: 55px; text-align: center;font-size:1.5em"></i>
+                        </a>
+                        <a ng-click="zoomToLayerExtent(layer)" style="display: inline;">
+                            <i class="fa fa-2x fa-search-plus" style="width: 55px; text-align: center;font-size:1.5em"></i>
+                        </a>
+                    </div>
+                    <div id="spn_opacity_{{layer.LayerID}}" ng-show="islayerSlider" style="margin:0px 10px 5px 10px">
+                        <input id="range-slider-{{layer.LayerID}}">
+                        <div tag-slider></div>
+                    </div>
+                    <div class="decoration" style="margin-bottom: 0px;height:2px"></div>
+                </div>
+            </div>
+
+            <div class="portfolio-filter-item" ng-controller="TimelineCtrl as timelineCtrl" ng-init="init()" ng-show="layerCategory=='timelinelayers'"
+                 style="height:100%;overflow-y:auto;width: 100%;">
+                <div class="heading-style-1 container" style="margin-bottom:0px;padding-left: 5px;">
+                    <input name="filter" type="radio" value="filteryear" ng-model="filtertype" ng-change="onToggleFilter(filtertype)" class="radiobox"
+                           ng-style="(language=='en-US') && {'margin-left': '1px','margin-right': '2px'} || {'margin-left': '10px','float': 'right'}" style="width:20px;margin-bottom:7px;margin-right: 0px;">
+                    <h6 ng-style="(language=='en-US') && {'float': 'left'} || {'float': 'right'}" translate="search"></h6>
+                    <div class="decoration" style="margin-top:0px;height:2px"></div>
+                </div>
+                <div class="tile-body" style="padding: 5px;font-size:small">
+                    <div ng-show="showYearFilter">
+                        <span translate="Year"></span>
+                    </div>
+                    <div ng-show="showYearFilter">
+                        <select ng-disabled="filtertype!='filteryear'" size="1" class="contactField input-xs" ng-change="onYearChanged()" id="lstTimelineYears" ng-model="selectedYearLocal"
+                                ng-options="year as year for year in years" style="width:100%;">
+                        </select>
+                    </div>
+                    <div ng-show="showYearFilter">
+                        <span translate="Month"></span>
+                    </div>
+                    <div ng-show="showYearFilter">
+                        <select ng-disabled="filtertype!='filteryear'" size="1" class="contactField input-xs" ng-change="onMonthChanged()" id="lstTimelineMonths" ng-model="selectedMonthLocal"
+                                ng-options="getMonthLabel(month) for month in months track by month" style="width:100%;">
+                        </select>
+                    </div>
+                    <!-- Filter By Date -->
+                    <div class="heading-style-1 container" style="margin-bottom:5px;padding-left: 5px;">
+                        <input name="filter" type="radio" value="filterdate" ng-model="filtertype" ng-change="onToggleFilter(filtertype)" class="radiobox"
+                               ng-style="(language=='en-US') && {'margin-left': '1px','margin-right': '2px'} || {'margin-left': '10px','float': 'right'}" style="width:20px;margin-bottom:7px;margin-right: 0px;">
+                        <h6 ng-style="(language=='en-US') && {'float': 'left'} || {'float': 'right'}" translate="daterange"></h6>
+                        <div class="decoration" style="margin-top:0px;height:2px"></div>
+                    </div>
+                    <div ng-show="showRangeFilter">
+                        <div>
+                            <button ng-disabled="filtertype=='filteryear'" ng-click="onSelectDate('from')" style="width:85%" href="javascript:void(0);" class="button button-blue button-round">
+                                <span translate="from"></span>
+                                &nbsp:&nbsp {{fromDate}}
+                            </button>
+
+                        </div>
+                        <div>
+                            <button ng-disabled="filtertype=='filteryear'" ng-click="onSelectDate('to')" style="width:85%" href="javascript:void(0);" class="button button-blue button-round">
+                                <span translate="to"></span>
+                                &nbsp:&nbsp {{toDate}}
+                            </button>
+                        </div>
+                        <div id="divDateChooserModal">
+                            <input class="datepicker" type="text" style="margin-left: -200px">
+                        </div>
+                    </div>
+                    <div class="heading-style-1 container" style="margin-bottom:5px;padding-left: 5px;">
+                        <input class="checkbox" ng-model="bShowallTimelineLayers" ng-change="showAllTimelinelayers()" type="checkbox"
+                               ng-style="(language=='en-US') && {'margin-left': '1px','margin-right': '2px'} || {'margin-left': '10px','margin-right': '0px','float': 'right'}" style="width:20px;margin-bottom:7px;">
+                        <h6 style="margin:0px 20px 0px 20px;" translate="Layers"></h6>
+                        <div class="decoration" style="margin-top:0px;height:2px"></div>
+                    </div>
+
+                    <div style="overflow-wrap:break-word;overflow-x:auto">
+                        <div ng-repeat="layer in layers" style="margin-top:-20px;">
+                            <div class="user-list-follow" style="padding-bottom:0px;margin-top:20px;height:40px;margin-left: 5px;">
+                                <input class="checkbox" ng-model="layer.checked" type="checkbox" ng-style="(language=='en-US') && {} || {'float': 'right', 'margin-right': '0px'}" style="width:20px;margin-left: 0px; margin-right: 0px;"
+                                       ng-change="toggleLayer(layer)">
+                                <label ng-style="(language=='en-US') && {} || {'margin-left': '-10px'}">
+                                    <strong style="word-break: break-all;width:200px;line-height: 17px;font-size: 12px;">
+                                        {{getLayerLabel(layer)}} <em style="padding-top: 10px;"><i class="fa fa-clock-o"></i>{{layer.DateString}}</em>
+                                    </strong>
+                                </label>
+                            </div>
+                            <div style="text-align: center;">
+                                <a ng-click="isTimelinelayerSlider =! isTimelinelayerSlider" ng-style="(language=='en-US') && {'border-right': 'solid 1px rgba(0,0,0,0.1)'} || {'border-left': 'solid 1px rgba(0,0,0,0.1)'}"
+                                   style="display: inline;">
+                                    <i class="fa fa-2x fa-sliders" style="width: 55px; text-align: center;"></i>
+                                </a>
+                                <a ng-click="zoomToExtent(layer)" style="display: inline;">
+                                    <i class="fa fa-2x fa-search" style="width: 55px; text-align: center;"></i>
+                                </a>
+                            </div>
+                            <div id="timeline_l_opacity_{{layer.LayerID}}" ng-show="isTimelinelayerSlider" style="margin:0px 10px 5px 10px">
+                                <input id="range-l-slider-{{layer.LayerID}}">
+                                <div tag-timeline></div>
+                            </div>
+                            <div class="decoration" style="margin-bottom: 0px;height:2px"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-filter-item" ng-controller="ReportCtrl" ng-init="init()" ng-show="layerCategory=='report'"
+                 style="height:100%;overflow-y:auto;width: 100%;">
+                <div style="display:block;overflow:scroll;">
+                    <div class="report_cont" ng-repeat="regions in uniqueRegionList">
+                        <div class="report-region">
+                            <div class="report_text" ng-if="language == 'en-US'" ng-click="regionSelected(regions)"><h6>{{regions.Region_En}}</h6></div>
+                            <div class="report_text" ng-if="language == 'ar-AE'" ng-click="regionSelected(regions)"><h6>{{regions.Region_Ar}}</h6></div>
+                            <div class="report_icon">
+                                <!-- <span class="report_i"><i class="fa fa-eye" ng-click="showRegionPdf(regions)"></i></span> -->
+                                <!-- <span class="report_i"><i class="fa fa-download" ng-click="showPdf(regions)"></i></span> -->
+                            </div>
+                        </div>
+                        <div class="report-area" ng-show="regions.isSelected" ng-repeat="areas in regions.lstOfAreas">
+                            <div class="report_text" ng-if="language == 'en-US'"><h6>{{areas.NameEn}}</h6></div>
+                            <div class="report_text" ng-if="language == 'ar-AE'"><h6>{{areas.NameAr}}</h6></div>
+                            <div class="report_icon">
+                                <!-- <span class="report_i"><i class="fa fa-eye" ng-click="showAreaPdf(regions)"></i></span> -->
+                                <!-- <span class="report_i"><i class="fa fa-download" ng-click="showPdf(regions)"></i></span> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-filter-item" ng-controller="TasksCtrl" ng-init="init()" ng-show="layerCategory=='tasks'"
+                 style="height:100%;overflow-y:auto;width: 100%;">
+                <div class="task_list">
+                    <div class="task_binnd" ng-repeat="task101 in listOfTasks">
+                        <button class="collapsible" ng-click="taskClicked(task101)" ng-class="{ 'active' : task101.isOpened == true }">{{task101.TaskName}}</button>
+                        <!-- <button class="collapsible" ng-click="taskClicked(task101)" ng-class="{ 'active' : task101.isOpened == true }" ng-if="language =='ar-AE'">مهمة-{{task101.ID}}</button> -->
+                        <div class="content">
+                            <div ng-repeat="buildings101 in task101.listOfBuildings">
+                                <button class="accordion" ng-if="language =='en-US'" ng-class="{ 'active' : buildings101.isOpened == true }" ng-click="buildingClicked(buildings101)">Building-{{buildings101.Id}}</button>
+                                <button class="accordion" ng-if="language =='ar-AE'" ng-class="{ 'active' : buildings101.isOpened == true }" ng-click="buildingClicked(buildings101)">بناء-{{buildings101.Id}}</button>
+                                <div class="panel" ng-show="buildings101.isOpened == true">
+                                    <p ng-if="language =='en-US'">Building ID: <Span class="bid">{{buildings101.BuildingId}}</Span></p>
+                                    <p ng-if="language =='ar-AE'">بناء معرف:<Span class="bid">{{buildings101.BuildingId}}</Span></p>
+                                    <p ng-if="language =='en-US'">Area: <Span class="aid">{{buildings101.Area_En}}</Span></p>
+                                    <p ng-if="language =='ar-AE'">منطقة: <Span class="aid">{{buildings101.Area_Ar}}</Span></p>
+                                    <h6 translate="MAP.UPLOADED_FILES" ng-show="buildings101.Alldocuments != undefined && buildings101.Alldocuments != null && buildings101.Alldocuments.length > 0"></h6>
+                                    <!---	<button class="task_btn1" id="myBtn1" translate="Open With oogle" style="display:inline-block"></button>
+                                    </br> --->
+                                    <div class="left_upload_i">
+                                        <button class="task_btn" ng-click="openGoogleMaps()"><i class="fa fa-map-marker" style="color: #fff; font-size: 16px;">&nbsp;</i> Open with google</button>
+                                    </div>
+                                    <div class="upload_info" ng-repeat="uploadedDocuments101 in buildings101.Alldocuments">
+                                        <div class="left_upload_i">
+                                            <a href="javascript:void(0);" ng-click="viewUploadedDocument(uploadedDocuments101)">{{uploadedDocuments101.File_Name}}</a>
+                                        </div>
+                                        <div class="right_upload_i" ng-click="deleteUploadedDocuments(buildings101.Alldocuments, $index)">
+                                            <i class="fa fa-trash"></i>
+                                        </div>
+                                    </div>
+                                    <!-- Modal-start -->
+                                    <button class="task_btn" id="myBtn" translate="MAP.UPLOAD_VIEW" ng-click="showModel(buildings101)"></button>
+                                    <!-- The Modal -->
+                                    <div id="myModal" class="modal" ng-show="buildings101.isModelVisible">
+                                        <!-- Modal content -->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <!-- <span class="close" ng-click="closeModel(buildings101)">&times;</span> -->
+                                                <h4 translate="MAP.UPLOAD_VIEW"></h4>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <div class="Inside_cont" ng-repeat="file101 in buildings101.uploadedFiles">
+                                                    <div class="left_u" style="text-decoration: underline;" ng-click="showUploadedFile(file101)">
+                                                        {{file101.file.name}}
+                                                    </div>
+                                                    <div class="right_u">
+                                                        <button class="task_btn" id="myBtn"><i class="fa fa-trash" ng-click="deleteUploadedFile(buildings101.uploadedFiles, $index)"></i></button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="Inside_cont">
+                                                    <div class="left_u" translate="MAP.UPLOAD_FILE"></div>
+                                                    <div class="right_u">
+                                                        <label class="myLabel">
+                                                            <input type="file" required on-file-change on-change="uploadFile(buildings101,arg101)" />
+                                                            <span><i class="fa fa-upload"></i></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <button ng-click="closeModel(buildings101)" class="task_btn" translate="MAP.DONE"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal-end -->
+                                    ​                    	 <textarea ng-init="buildings101.Comments = buildings101.Comments == 'NA' ? '' : buildings101.Comments" placeholder="{{ 'MAP.COMMENTS' | translate }}" cols="30" rows="3" ng-model="buildings101.Comments"></textarea>
+                                    <button class="task_btn" translate="MAP.SUBMIT" ng-click="submitBuildingInfo(buildings101)"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" ng-show="layerCategory=='bookmarks'" ng-controller="MyBookmarksTreeCtrl"
+                 style="height:100%;overflow-y:auto;width: 100%;">
+                <!--<my-bookmarks></my-bookmarks>-->
+                <div id="bookmark_jstree" style="padding-top:15px" ng-show="bookmarkCat=='tree'"></div>
+
+                <div id="dlg_addBookmark" ng-show="bookmarkCat=='addModifyBk'" ng-controller="BookMarkCtrl" style="max-height:500px; overflow-y:auto">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">×</button>
+                        <h4 class="modal-title custom-color">{{formData.bkOperationType}}</h4>
+                    </div>
+                    <div class="modal-body no-padding" ng-submit="submitAddBookMarkForm()">
+                        <form name="bookMarkForm">
+                            <div class="form-group">
+                                <span class="custom-color">{{'BOOKMARK.LABEL' | translate}}</span>:
+                                <input type="text" class="form-control input-xs" name="DefaultName" ng-model="formData.name" ng-focus="removeMessage();" ng-maxlength="100">
+                                <div class="error-container" ng-show="bookMarkForm.DefaultName.$dirty && bookMarkForm.DefaultName.$invalid">
+                                    <small class="text-red" ng-show="bookMarkForm.DefaultName.$error.required"><span data-i18n="msg-value-req"></span></small>
+                                    <small class="text-red" ng-show="bookMarkForm.DefaultName.$error.minlength"><span data-i18n="msg-value-length"></span></small>
+                                    <small class="text-red" ng-show="bookMarkForm.DefaultName.$error.maxlength"><span data-i18n="inputlengthmsg"></span></small>
+                                </div>
+                                <div class="error-container" ng-show="uniqueError">
+                                    <small class="text-red"><span>{{'BOOKMARK.FOLDER_NAME_TAKEN' | translate}}</span></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span>{{'BOOKMARK.DESCRIPTION' | translate}}</span>:
+                                <textarea rows="3" class="form-control" name="Description" ng-model="formData.description" ng-maxlength="1000"></textarea>
+                                <div class="error-container" ng-show="bookMarkForm.Description.$dirty && bookMarkForm.Description.$invalid">
+                                    <small class="text-red" ng-show="bookMarkForm.Description.$error.maxlength"><span data-i18n="inputlengthmsg"></span></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <input id="isPublicCB" class="checkbox" type="checkbox" name="checkbox" ng-model="formData.isPublic" ng-true-value="'Y'" ng-false-value="'N'" style="margin: 4px 0 0">
+                                <!--<span style="padding:0px 20px 0px 20px" class="custom-color">{{'BOOKMARK.ISPUBLIC' | translate}}</span>-->
+                                <label for="isPublicCB" class="custom-color">{{'BOOKMARK.ISPUBLIC' | translate}}</label><br>
+
+                            </div>
+                            <footer style="background: none;">
+                                <!--<button type="submit" ng-disabled="bookMarkForm.$invalid" class="btn btn-success" ng-hide="btn_show_loading" ng-model="saveMaploading"><span data-i18n="Save"></span></button>-->
+                                <button type="submit" class="btn btn-success" ng-hide="btn_show_loading" ng-model="saveMaploading"><span>{{'BOOKMARK.SAVE' | translate}}</span></button>
+                                <button type="button" ng-show="btn_show_loading" disabled="disabled" class="btn btn-success"><span>{{'BOOKMARK.saving' | translate}}</span>....</button>
+                                <button type="button" class="btn btn-default" ng-click="cancel();">
+                                    <span>{{'BOOKMARK.CANCEL' | translate}}</span>
+                                </button>
+                            </footer>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="boolLeftDivState == 'search'" style="width: 100%;height: 100%;">
+    <div style="padding-left: 10px; padding-right: 30px;" ng-controller="SearchCtrl">
+        <div class="blog-sidebar-search full-bottom">
+            <i class="fa fa-search" ng-style="(language=='en-US') && {'left': '2px','top': '16px'} || {'right': '10px','float': 'right','top': '16px'}"></i>
+            <input id="txtSimpleSearch" type="text" placeholder="{{'entercoordinates' | translate}}">
+        </div>
+        <div class="formSubmitButtonErrorsWrap contactFormButton">
+            <input type="submit" class="buttonWrap button contactSubmitButton" id="contactSubmitButton" value="{{'search' |translate}}" data-formid="contactForm" ng-click="zoomToLatLon()" style="background-color:#00aeef !important;color:white;">
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="SplashContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title custom-font">{{'BOOKMARK.ConfirmDelete' |translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <p>{{items.msg}}</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success btn-border" ng-click="ok()"><span>{{'GEOSERV.DELETE' |translate}}</span></button>
+        <button class="btn btn-danger btn-border" ng-click="cancel()"><span>{{'BOOKMARK.CANCEL' |translate}}</span></button>
+    </div>
+</script>

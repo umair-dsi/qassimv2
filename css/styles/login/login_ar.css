@@ -1,0 +1,70 @@
+.logindiv {
+	/* position: fixed; */
+	/* top: 0; */
+	/* margin-top: 0px; */
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+.login_box {
+    background: #e6e6e6;
+    top: 160px;
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px 15px;
+    border-radius: 4px;
+}
+.page-login{
+	width: auto !important;
+}
+.btn_login button{
+	background: #499032;
+	color: #ffffff;
+	font-weight: bold;
+}
+.login-input i{
+	font-size: 15px;
+	color: #499032;
+}
+.login-input input{
+	color: #000;
+}
+.login-password i{
+	font-size: 15px;
+	color: #499032;
+}
+.login-password input{
+	color: #000;
+}
+
+/* .bg-custom-1 {
+    background-image: url(../images/mbrsc/Space-Wallpaper.png);
+    background: repeat;
+    background-size: cover;
+    background-repeat: no-repeat;
+} */
+
+.page-login input:focus {
+    border-bottom: solid 2px #499032 !important;
+}
+
+.bottom-header {
+	background-color: #fff;
+}
+
+.equal-top {
+	width: 33.333333%;
+	padding-left: 10px;
+	padding-right: 10px;
+	position: relative;
+	float: left;
+	background-color: #fff;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.equal-top img {
+	margin: 0 auto !important;
+	display: block !important;
+	height: 27px !important;
+}

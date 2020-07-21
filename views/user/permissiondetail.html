@@ -1,0 +1,117 @@
+<div id="header-fixed">
+	<a class="open-left-sidebar" ui-sref="permissionlist">
+		<i class="fa fa-2x fa-chevron-left"></i>
+	</a>
+	<h4 class="heading-title" style="text-align: center;">
+		<img src="images/mbrsc/logo-arc-mobile.png">
+	</h4>
+	<a class="open-right-sidebar" href="javascript:void(0);" ng-click="onClickToolbar();" style="top:5px;">
+		<i class="fa fa-2x fa-ellipsis-v"></i>
+	</a>
+</div>
+<div style="padding-left:20px;padding-right: 20px;padding-top: 80px;">
+	<h5 class="heading-title">{{ 'USER_GROUP.PERMISSION_SCHEME' | translate }}</h5>
+	<div class="decoration"></div>
+	<form name="permissionDetailForm" novalidate>
+		<fieldset>
+			<div class="formFieldWrap">
+				<label class="field-title contactNameField" for="contactNameField">
+					{{ 'PERMISSION_SCHEME.ENGLISH_NAME' | translate }}
+					<span style="color: red">(*)</span>
+				</label>
+				<input class="text-field green-field" type="text" name="englishName" ng-model="permissionDetail.NAME" ng-minlength="4" ng-maxlength="100" required>
+				<div class="error-container" ng-show="permissionDetailForm.englishName.$dirty && permissionDetailForm.englishName.$invalid">
+					<small class="text-red" ng-show="permissionDetailForm.englishName.$error.required">
+						<span translate="PERMISSION_SCHEME.ENGLISH_NAME_FIELD_VALID_REQUIRED"></span>
+					</small>
+					<small class="text-red" ng-show="permissionDetailForm.englishName.$error.minlength">
+						<span translate="PERMISSION_SCHEME.ENGLISH_NAME_FIELD_VALID_MIN_CHARACTERS"></span>
+					</small>
+					<small class="text-red" ng-show="permissionDetailForm.englishName.$error.maxlength">
+						<span translate="PERMISSION_SCHEME.ENGLISH_NAME_FIELD_VALID_MAX_CHARACTERS"></span>
+					</small>
+				</div>
+			</div>
+			
+			<div class="formFieldWrap">
+				<label class="field-title contactNameField" for="contactNameField">
+					{{ 'PERMISSION_SCHEME.ARABIC_NAME' | translate }}
+				</label>
+				<input class="text-field green-field" type="text" name="arabicName" ng-model="permissionDetail.NAME_AR">
+			</div>
+	
+			<div class="formFieldWrap">
+				<input id="gs-usr-check-label-id" class="checkbox" ng-class="{'gs-ug-input-checkbox-rtl':language=='ar-AE'}" type="checkbox" ng-model="allPermissionSchemes" ng-change="selectAllPermissionSchemes(allPermissionSchemes)">
+				<label class="checkbox-label" for="gs-usr-check-label-id">{{ 'PERMISSION_SCHEME.SELECT' | translate }}
+					/ {{ 'PERMISSION_SCHEME.UNSELECT_ALL' | translate }}</label>
+				<div class="clear"></div>
+			</div>
+
+			<div class="container">
+				<div class="gs-ps-crps-table" ng-class="{'gs-ps-crps-table-ar':language=='ar-AE'}" ng-repeat="modul in modulePermissions">
+					<div class="container">
+						<table cellspacing="0" class="table">
+							<tbody>
+								<tr>
+									<th style="text-align:left;"><input class="checkbox" type="checkbox" ng-model="selectModulePermissionSchemes" ng-change="selectAllmodulePermissionSchemes(selectModulePermissionSchemes, modul.ModuleID)">
+										<span>{{language=='ar-AE' ? modul.ModuleName_Ar : modul.ModuleName}}</span>
+									</th>
+								</tr>
+								<tr ng-repeat="Permision in modul.permissions">
+									<td class="table-sub-title"><input class="checkbox" type="checkbox" ng-model = "Permision.isClicked" ng-change="unselectPermissionScheme()"> 
+										<span>{{language=='ar-AE' ? Permision.Name_Ar : Permision.Name}}</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<!-- <div class="container ug-container-margin-20">
+				<button type="submit" ng-disabled="permissionDetailForm.$invalid" ng-class="permissionDetailForm.$invalid ? 'button-gray' :'button-green'" class="login-button button button-small  button-fullscreen full-bottom"
+					translate="PERMISSION_SCHEME.SUBMIT" ng-click="selectSavePermissionDetail()" style="height: 40px;border-radius:5px;margin: 0 auto;"></button>
+			</div>
+			<div class="clear"></div> -->
+			
+			<div class="container ug-container-margin-20">
+			    <div class="one-half">
+			        <!-- <button ng-disabled="userForm.$invalid" ng-class="userForm.$invalid ? 'button-gray' :'button-green'" class="button button-small  button-fullscreen full-bottom"
+					translate="BOOKMARK.SAVE" ng-click="selectSaveUser()"></button> -->
+					<a href="#" class="button button-icon user-btn-icon-white" ng-class="permissionDetailForm.$invalid ? 'button-gray' :'button-green'" ng-click="selectSavePermissionDetail()" a-disabled="permissionDetailForm.$invalid"><i class="fa fa-floppy-o"></i>{{ 'BOOKMARK.SAVE' | translate }}</a>
+			    </div>
+			    <div class="one-half last-column">
+<!-- 			       <button ng-click="deleteUser();" ng-show="addUser.UserID != null" class="button button-small button-fullscreen full-bottom"
+					translate="BOOKMARK.SAVE"></button> -->
+					<a href="#" class="button button-icon button-red user-btn-icon-white" ng-click="selectDeletePermissionScheme()" ng-show="permissionDetail.ID != null"><i class="fa fa-trash-o"></i>{{ 'GEOSERV.DELETE' | translate }}</a>
+			    </div>
+			    <div class="clear"></div>
+			</div>
+			
+		</fieldset>
+	</form>
+
+</div>
+
+<div id="permissionDetailToolBarDiv" class="share-bottom toolbarBackground" style="padding-top: 10px; padding-bottom: 0px;">	
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" style="height: 45px;">
+		<i class="fa fa-user"></i>
+		<em style="line-height: 40px;">{{'loginas'|translate}} [{{loginUserName}}]</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ui-sref="dashboard">
+		<i class="fa fa-home"></i>
+		<em style="line-height: 40px;" translate="home"></em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="changeLocaleTo('en-US')" ng-if="language =='ar-AE'">
+		<i class="fa fa-language"></i>
+		<em style="line-height: 40px;">English</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" style="height: 45px;" href="#" ng-click="changeLocaleTo('ar-AE')" ng-if="language =='en-US'">
+		<i class="fa fa-language"></i>
+		<em style="line-height: 40px;">العربية</em>
+	</a>
+	<a ng-class="language == 'en-US' ? 'menu-item' : 'menu-item-ar'" href="#" ng-click="logout()" style="height: 45px;">
+		<i class="fa fa-sign-out"></i>
+		<em style="line-height: 40px;" translate="logout"></em>
+	</a>
+</div>

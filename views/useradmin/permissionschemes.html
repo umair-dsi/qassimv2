@@ -1,0 +1,72 @@
+<div id="divpermissionschemes_views" ng-switch="usrGrp.displayView" ng-class="{'gs-ug-text-rtl':language=='ar-AE'}">
+	<div ng-switch-when="GSPERMISSIONSCHEMESVIEW" ng-controller="permissionSchemesViewCtrl">
+		<div class="container ug-container-margin-rl-20">
+			<input type="text" placeholder="{{ 'USER_GROUP.SEARCH' | translate }}" class="gs-u-select" ng-model="searchPermissions">
+		</div>
+		<div class="decoration"></div>
+		<div class="container ug-container-margin-20" ng-repeat="permissionschem in permissionSchemes | filter:searchPermissions">
+			<a ng-click="selectPermissionSchemesRow(permissionschem)" class="user-list-item" ng-class="{'ug-list-ar':language=='ar-AE'}">
+				<img src="images/geoserv/user-group-24x24.png" alt="img">
+				<div class="gs-u-list-title-div" ng-class="{'gs-u-list-title-div-ar':language=='ar-AE'}">
+					<div>
+						<span>{{permissionschem.NAME}}</span>
+					</div>
+					<div>
+						<span>{{permissionschem.NAME_AR}}</span>
+					</div>
+				</div>
+				<i class="fa" ng-class="language=='en-US'? 'fa-chevron-right' :'fa-chevron-left'"></i>
+			</a>
+			<div class="decoration"></div>
+		</div>
+	</div>
+
+	<div ng-switch-when="GSCREATEPERMISSIONSCHEMESVIEW" ng-controller="createPermissionSchemesCtrl">
+
+		<div class="container ug-container-margin-20">
+			<div class="one-half-responsive">
+				<h6>{{ 'PERMISSION_SCHEME.ENGLISH_NAME' | translate }}</h6>
+			</div>
+			<div class="one-half-responsive last-column">
+				<input class="text-field green-field" type="text" ng-model="createPermissionScheme.englishName">
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="container ug-container-margin-20">
+			<div class="one-half-responsive">
+				<h6>{{ 'PERMISSION_SCHEME.ARABIC_NAME' | translate }}</h6>
+			</div>
+			<div class="one-half-responsive last-column">
+				<input class="text-field green-field" type="text" ng-model="createPermissionScheme.arabicName">
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="container ug-container-margin-20">
+			<input id="gs-usr-check-label-id" class="checkbox" ng-class="{'gs-ug-input-checkbox-rtl':language=='ar-AE'}" type="checkbox" ng-model="allPermissionSchemes"
+				ng-change="selectAllPermissionSchemes(allPermissionSchemes)" ng-disabled="permissionSchemeObj.permissionScheme.ID=='1'">
+			<label class="checkbox-label" for="gs-usr-check-label-id">{{ 'PERMISSION_SCHEME.SELECT' | translate }} / {{ 'PERMISSION_SCHEME.UNSELECT_ALL' | translate }}</label>
+			<div class="clear"></div>
+		</div>
+
+		<div class="container ug-container-margin-20">
+			<div class="gs-ps-crps-table" ng-class="{'gs-ps-crps-table-ar':language=='ar-AE'}" ng-repeat="modul in createPermissionScheme.modulePermissions">
+				<div class="container">
+					<table cellspacing="0" class="table">
+						<tbody>
+							<tr>
+								<th style="text-align:left;"><input class="checkbox" type="checkbox" ng-model="modulePermissionSchemes"
+									ng-change="selectAllmodulePermissionSchemes(modulePermissionSchemes,modul.ModuleID)" ng-disabled="permissionSchemeObj.permissionScheme.ID=='1'"> <span>{{language=='ar-AE' ?
+										modul.ModuleName_Ar : modul.ModuleName}}</span></th>
+							</tr>
+							<tr ng-repeat="Permision in modul.permissions">
+								<td class="table-sub-title"><input class="checkbox" type="checkbox" ng-model="Permision.isClicked"> <span>{{language=='ar-AE' ? Permision.Name_Ar : Permision.Name}}</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
