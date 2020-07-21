@@ -83,7 +83,7 @@ mapModule.controller('TasksCtrl', [ '$scope', 'mapservice', '$rootScope', '$time
       
       //window.open("https://maps.google.com?z=10&q=" + _lat + "," + _long, "_system");
       //window.open("geo:0,0?z=10&q=" + _lat + "," + _long, "_system");
-      cordova.InAppBrowser.open("https://maps.google.com?z=10&q=" + _lat + "," + _long, '_blank', 'location=no')
+      cordova.InAppBrowser.open("https://maps.google.com?z=10&q=" + 33.15454 + "," + 71.65561, '_blank', 'location=no')
     }else{
       console.log("lat long is missing");
     }
