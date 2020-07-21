@@ -334,9 +334,9 @@
 
 <script type="text/ng-template" id="SplashContent.html">
     <div class="modal-header">
-        <h3 class="modal-title custom-font">{{'BOOKMARK.ConfirmDelete' |translate}}</h3>
+        <h3 class="modal-title custom-font custom-color">{{'BOOKMARK.ConfirmDelete' |translate}}</h3>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" >
         <p>{{items.msg}}</p>
     </div>
     <div class="modal-footer">
@@ -349,9 +349,9 @@
 <script type="text/ng-template" id="BookMarkFolder.html">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">×</button>
-        <h4 class="modal-title">{{formData.operation}}</h4>
+        <h4 class="modal-title custom-color">{{formData.operation}}</h4>
     </div>
-    <div class="modal-body no-padding" ng-submit="submitBookMarkFolderForm(formData)">
+    <div class="modal-body no-padding" ng-submit="submitBookMarkFolderForm(formData)" >
         <form name="bookMarkFolderForm" class="smart-form">
             <div class="form-group">
                 <span>{{'BOOKMARK.FOLDER_NAME' |translate}}:</span>

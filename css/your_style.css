@@ -403,3 +403,7 @@ input:focus{
 .custom-color {
 	color: #909090 !important;
 }
+
+.my-modal-props {
+	z-index: 10000000 !important;
+}

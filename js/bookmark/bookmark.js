@@ -159,6 +159,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                             $modal.open({
                                                 templateUrl: 'BookMarkFolder.html',
                                                 controller: 'BookMarkFolderCtrl',
+                                                windowClass: "my-modal-props",
                                                 backdrop: 'static',
                                                 resolve: {
                                                     parentId: function () {
@@ -186,6 +187,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                                 templateUrl: 'BookMarkFolder.html',
                                                 controller: 'BookMarkFolderCtrl',
                                                 backdrop: 'static',
+                                                windowClass: "my-modal-props",
                                                 resolve: {
                                                     parentId: function () {
                                                         return node.id.split("_")[1];
@@ -283,6 +285,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                             $modal.open({
                                                 templateUrl: 'SplashContent.html',
                                                 controller: 'ModalInstanceCtrl',
+                                                windowClass: "my-modal-props",
                                                 resolve: {
                                                     items: function () {
                                                         return { operation: 'deleteBookmark', bookMarkId: node.id.split("_")[1], msg: $translate.instant('BOOKMARK.deleteBookmarkMsg') };
@@ -300,6 +303,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                             $modal.open({
                                                 templateUrl: 'SplashContent.html',
                                                 controller: 'ModalInstanceCtrl',
+                                                windowClass: "my-modal-props",
                                                 resolve: {
                                                     items: function () {
                                                         return { operation: 'deleteBookmarkFolder', folderId: node.id.split("_")[1], msg: $translate.instant('BOOKMARK.deleteBookmarkFolderMsg') };
