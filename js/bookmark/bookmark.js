@@ -264,7 +264,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                                 $rootScope.mapObj.addLayer($scope.bookMarkeditable);
                                                 $scope.bookMarkeditable.dragging.enable();
                                                 $rootScope.mapObj.on('click', $scope.thisMapClick);
-                                                    
+
                                                 $rootScope.mapObj.panTo(sel_bk[0].marker.getLatLng());
                                             }
                                         }
@@ -497,22 +497,22 @@ mapModule.controller('BookMarkFolderCtrl', ['$scope', '$http', '$modalInstance',
                                 'timeStamp': new Date().getTime()
                             }
                         }).then(function (result) {
-                        if (result.data.msgId === 1) {
-                            //toastr.error(result.data.msg, localize.getLocalizedString("Error"), { positionClass: (currentLanguage == 'ar' ? 'toast-top-left' : 'toast-top-right') });
-                            lnv.alert({
-                                content: result.data.msg,
-                                alertBtnText: $translate.instant('MAP.OK')
-                            });
-                        } else {
-                            //toastr.success(localize.getLocalizedString("msg-bookmark-folder-modify"), localize.getLocalizedString("Success"), { positionClass: (currentLanguage == 'ar' ? 'toast-top-left' : 'toast-top-right') });
-                            lnv.alert({
-                                content: $translate.instant("BOOKMARK.msg-bookmark-folder-modify"),
-                                alertBtnText: $translate.instant('MAP.OK')
-                            });
-                            $modalInstance.close();
-                            $rootScope.$broadcast('updateBookMarkTreeEvent');
-                        }
-                    });
+                            if (result.data.msgId === 1) {
+                                //toastr.error(result.data.msg, localize.getLocalizedString("Error"), { positionClass: (currentLanguage == 'ar' ? 'toast-top-left' : 'toast-top-right') });
+                                lnv.alert({
+                                    content: result.data.msg,
+                                    alertBtnText: $translate.instant('MAP.OK')
+                                });
+                            } else {
+                                //toastr.success(localize.getLocalizedString("msg-bookmark-folder-modify"), localize.getLocalizedString("Success"), { positionClass: (currentLanguage == 'ar' ? 'toast-top-left' : 'toast-top-right') });
+                                lnv.alert({
+                                    content: $translate.instant("BOOKMARK.msg-bookmark-folder-modify"),
+                                    alertBtnText: $translate.instant('MAP.OK')
+                                });
+                                $modalInstance.close();
+                                $rootScope.$broadcast('updateBookMarkTreeEvent');
+                            }
+                        });
                 } else {
                     $scope.uniqueError = true;
                 }
@@ -528,37 +528,37 @@ mapModule.controller('BookMarkFolderCtrl', ['$scope', '$http', '$modalInstance',
                         'timeStamp': new Date().getTime()
                     }
                 }).then(function (result) {
-                if (result.data.status === 0) {
-                    var addBookMarkFolder_URL = $rootScope.baseUrl + "Bookmark/m_addBookMarkFolder";
-                    $http.get(addBookMarkFolder_URL,
-                        {
-                            params: {
-                                'userId': $rootScope.userInfo.userId,
-                                'token': $rootScope.userInfo.token,
-                                bookmark: bookmarkVo,
-                                'timeStamp': new Date().getTime()
-                            }
-                        }).then(function (result) {
-                        if (result.data.msgId === 1) {
-                            //toastr.error(result.data.msg, localize.getLocalizedString("Error"), { positionClass: (currentLanguage == 'ar' ? 'toast-top-left' : 'toast-top-right') });
-                            lnv.alert({
-                                content: result.data.msg,
-                                alertBtnText: $translate.instant('MAP.OK')
+                    if (result.data.status === 0) {
+                        var addBookMarkFolder_URL = $rootScope.baseUrl + "Bookmark/m_addBookMarkFolder";
+                        $http.get(addBookMarkFolder_URL,
+                            {
+                                params: {
+                                    'userId': $rootScope.userInfo.userId,
+                                    'token': $rootScope.userInfo.token,
+                                    bookmark: bookmarkVo,
+                                    'timeStamp': new Date().getTime()
+                                }
+                            }).then(function (result) {
+                                if (result.data.msgId === 1) {
+                                    //toastr.error(result.data.msg, localize.getLocalizedString("Error"), { positionClass: (currentLanguage == 'ar' ? 'toast-top-left' : 'toast-top-right') });
+                                    lnv.alert({
+                                        content: result.data.msg,
+                                        alertBtnText: $translate.instant('MAP.OK')
+                                    });
+                                } else {
+                                    //toastr.success(localize.getLocalizedString("msg-bookmark-folder-created"), localize.getLocalizedString("Success"), { positionClass: (currentLanguage == 'ar' ? 'toast-top-left' : 'toast-top-right') });
+                                    lnv.alert({
+                                        content: $translate.instant("BOOKMARK.msg-bookmark-folder-created"),
+                                        alertBtnText: $translate.instant('MAP.OK')
+                                    });
+                                    $modalInstance.close();
+                                    $rootScope.$broadcast('updateBookMarkTreeEvent');
+                                }
                             });
-                        } else {
-                            //toastr.success(localize.getLocalizedString("msg-bookmark-folder-created"), localize.getLocalizedString("Success"), { positionClass: (currentLanguage == 'ar' ? 'toast-top-left' : 'toast-top-right') });
-                            lnv.alert({
-                                content: $translate.instant("BOOKMARK.msg-bookmark-folder-created"),
-                                alertBtnText: $translate.instant('MAP.OK')
-                            });
-                            $modalInstance.close();
-                            $rootScope.$broadcast('updateBookMarkTreeEvent');
-                        }
-                    });
-                } else {
-                    $scope.uniqueError = true;
-                }
-            });
+                    } else {
+                        $scope.uniqueError = true;
+                    }
+                });
         }
     };
 }]);
@@ -597,8 +597,15 @@ mapModule.controller('BookMarkCtrl', ['$scope', '$http', '$rootScope', '$timeout
     };
 
     $scope.init = function () {
-        $scope.marker = L.marker($rootScope.mapObj.getCenter(), { icon: L.AwesomeMarkers.icon({ icon: 'bookmark', prefix: 'fa', markerColor: 'blue' }), draggable: true });
-        $rootScope.mapObj.addLayer($scope.marker);
+        //$scope.marker = L.marker($rootScope.mapObj.getCenter(), { icon: L.AwesomeMarkers.icon({ icon: 'bookmark', prefix: 'fa', markerColor: 'blue' }), draggable: true });
+
+        $scope.$parent.bookMarkeditable = new L.marker($rootScope.mapObj.getCenter(),
+            {
+                icon: L.AwesomeMarkers.icon({ icon: 'bookmark', prefix: 'fa', markerColor: 'blue' }),
+                draggable: true
+            });
+        $rootScope.mapObj.addLayer($scope.$parent.bookMarkeditable);
+        $rootScope.mapObj.on('click', $scope.$parent.thisMapClick);
     };
 
     $scope.submitAddBookMarkForm = function () {
@@ -617,7 +624,7 @@ mapModule.controller('BookMarkCtrl', ['$scope', '$http', '$rootScope', '$timeout
             ).then(function (result) {
                 //if (result.data.status === 0) {
                 var wkt = new Wkt.Wkt();
-                wkt.fromObject($scope.marker);
+                wkt.fromObject($scope.$parent.bookMarkeditable);
                 $scope.formData.pointWkt = wkt.write();
                 var addBookMark_URL = $rootScope.baseUrl + "Bookmark/m_addBookmark";
                 $http.get(addBookMark_URL,
@@ -637,7 +644,7 @@ mapModule.controller('BookMarkCtrl', ['$scope', '$http', '$rootScope', '$timeout
                             alertBtnText: $translate.instant('MAP.OK')
                         });
                     } else {
-                        $rootScope.mapObj.removeLayer($scope.marker);
+                        $rootScope.mapObj.removeLayer($scope.$parent.bookMarkeditable);
                         //toastr.success(localize.getLocalizedString("msg-bookmark-created"), localize.getLocalizedString("Success"), { positionClass: (currentLanguage == 'ar' ? 'toast-top-left' : 'toast-top-right') });
                         lnv.alert({
                             content: $translate.instant("BOOKMARK.msg-bookmark-created"),
@@ -720,48 +727,48 @@ mapModule.controller('ModalInstanceCtrl', function ($scope, $modalInstance, item
                         'timeStamp': new Date().getTime()
                     }
                 }).then(function (result) {
-                if (result.data.msgId === 1) {
-                    lnv.alert({
-                        content: result.data.msg,
-                        alertBtnText: $translate.instant('MAP.OK')
-                    });
-                    //toastr['error']('', result.data.msg, { closeButton: true });
-                } else {
-                    //toastr['success']('', $translate.instant("BOOKMARK.msg-bookmark-folder-deleted"), { closeButton: true });
-                    lnv.alert({
-                        content: $translate.instant("BOOKMARK.msg-bookmark-folder-deleted"),
-                        alertBtnText: $translate.instant('MAP.OK')
-                    });
-                    $rootScope.$broadcast('updateBookMarkTreeEvent');
-                }
-            });
-         } else if ($scope.items != null && $scope.items.operation == "deleteBookmark") {
-             var deleteBookMark_URL = $rootScope.baseUrl + "Bookmark/m_deleteBookmark";
-             $http.get(deleteBookMark_URL,
-                 {
-                     params: {
-                         'userId': $rootScope.userInfo.userId,
-                         'token': $rootScope.userInfo.token,
-                         bookMarkId: $scope.items.bookMarkId,
-                         'timeStamp': new Date().getTime()
-                     }
-                 }).then(function (result) {
-                if (result.data.msgId === 1) {
-                    //toastr['error']('', result.data.msg, { closeButton: true });
-                    lnv.alert({
-                        content: result.data.msg,
-                        alertBtnText: $translate.instant('MAP.OK')
-                    });
-                } else {
-                    //toastr['success']('', $translate.instant("BOOKMARK.msg-bookmark-deleted"), { closeButton: true });
-                    lnv.alert({
-                        content: $translate.instant("BOOKMARK.msg-bookmark-deleted"),
-                        alertBtnText: $translate.instant('MAP.OK')
-                    });
-                    $rootScope.$broadcast('updateBookMarkTreeEvent');
-                }
-            });
-        } 
+                    if (result.data.msgId === 1) {
+                        lnv.alert({
+                            content: result.data.msg,
+                            alertBtnText: $translate.instant('MAP.OK')
+                        });
+                        //toastr['error']('', result.data.msg, { closeButton: true });
+                    } else {
+                        //toastr['success']('', $translate.instant("BOOKMARK.msg-bookmark-folder-deleted"), { closeButton: true });
+                        lnv.alert({
+                            content: $translate.instant("BOOKMARK.msg-bookmark-folder-deleted"),
+                            alertBtnText: $translate.instant('MAP.OK')
+                        });
+                        $rootScope.$broadcast('updateBookMarkTreeEvent');
+                    }
+                });
+        } else if ($scope.items != null && $scope.items.operation == "deleteBookmark") {
+            var deleteBookMark_URL = $rootScope.baseUrl + "Bookmark/m_deleteBookmark";
+            $http.get(deleteBookMark_URL,
+                {
+                    params: {
+                        'userId': $rootScope.userInfo.userId,
+                        'token': $rootScope.userInfo.token,
+                        bookMarkId: $scope.items.bookMarkId,
+                        'timeStamp': new Date().getTime()
+                    }
+                }).then(function (result) {
+                    if (result.data.msgId === 1) {
+                        //toastr['error']('', result.data.msg, { closeButton: true });
+                        lnv.alert({
+                            content: result.data.msg,
+                            alertBtnText: $translate.instant('MAP.OK')
+                        });
+                    } else {
+                        //toastr['success']('', $translate.instant("BOOKMARK.msg-bookmark-deleted"), { closeButton: true });
+                        lnv.alert({
+                            content: $translate.instant("BOOKMARK.msg-bookmark-deleted"),
+                            alertBtnText: $translate.instant('MAP.OK')
+                        });
+                        $rootScope.$broadcast('updateBookMarkTreeEvent');
+                    }
+                });
+        }
         $modalInstance.close();
     };
     $scope.cancel = function () {
