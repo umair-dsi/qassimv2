@@ -405,3 +405,7 @@ textarea{
 	color: #ea4335;
 }
 /***** 10th april 2019 end*****/
+
+.vakata-context li > a > i {
+	margin: 0px 0 0 0em;
+}

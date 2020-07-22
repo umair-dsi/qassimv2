@@ -1093,6 +1093,7 @@ mapModule.controller('MapCtrl', [
 					$rootScope.removeCSS("css/styles/map/map_ar.css");
 				}
 				$rootScope.$broadcast('updateLayerListEvent', $rootScope.mapID);
+				$rootScope.$broadcast('updateBookMarkTreeEvent');
 				$scope.closeSliderBox();
 				// $timeout(function() {
 					

@@ -11,6 +11,11 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
         $('#bookmark_jstree').jstree('select_node', 'bk_' + args.BookMarkID);
     });
 
+    $scope.thisMapClick = function (e) {
+        console.log(e);
+        $scope.bookMarkeditable.setLatLng(e.latlng);
+    };
+
     $scope.updateBookMark = function (fitBound) {
         $scope.bookMarkLayerGroup.clearLayers();
         var layerCount = 0;
@@ -122,6 +127,7 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                     $('#bookmark_jstree').jstree({
                         'core': {
                             //'worker': false,
+                            rtl: $rootScope.language == "en-US" ? false : true,
                             'themes': {
                                 'name': 'proton',
                                 'responsive': true
@@ -257,6 +263,8 @@ mapModule.controller('MyBookmarksTreeCtrl', function ($scope, $timeout, $http, $
                                                 $scope.bookMarkeditable.bindTooltip(sel_bk[0].object.Name, { permanent: true });//version 1.4
                                                 $rootScope.mapObj.addLayer($scope.bookMarkeditable);
                                                 $scope.bookMarkeditable.dragging.enable();
+                                                $rootScope.mapObj.on('click', $scope.thisMapClick);
+                                                    
                                                 $rootScope.mapObj.panTo(sel_bk[0].marker.getLatLng());
                                             }
                                         }
@@ -585,6 +593,7 @@ mapModule.controller('BookMarkCtrl', ['$scope', '$http', '$rootScope', '$timeout
         //$("#dlg_addBookmark").removeClass("open");
         $scope.$parent.bookmarkCat = "tree";
         $rootScope.$broadcast('updateBookMarkTreeEvent');
+        $rootScope.mapObj.off('click', $scope.$parent.thisMapClick);
     };
 
     $scope.init = function () {
