@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\libraries\\leaflet",
+    "\\libraries\\leaflet\\1.4.0",
     "\\views"
   ],
-  "SelectedNode": "\\css",
+  "SelectedNode": "\\config.xml",
   "PreviewInSolutionExplorer": false
 }
